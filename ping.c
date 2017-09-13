@@ -483,6 +483,17 @@ main(int argc, char **argv)
 
 	/* Create sockets */
 	enable_capability_raw();
+
+	/*
+	* ping depend on SIGALARM to exit sometimes,
+	* but to popen, system, fork carry on parent signal handler
+	* so we mask it ourself.
+	*/
+	sigset_t s;
+	sigaddset(&s, SIGALRM);
+	sigprocmask(SIG_UNBLOCK, &s, NULL);
+	set_signal(SIGALRM, doexit);
+
 	if (hints.ai_family != AF_INET6)
 		create_socket(&sock4, AF_INET, hints.ai_socktype, IPPROTO_ICMP, hints.ai_family == AF_INET);
 	if (hints.ai_family != AF_INET) {
