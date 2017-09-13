@@ -90,6 +90,7 @@ static int broadcast_pings = 0;
 static void pr_options(unsigned char * cp, int hlen);
 static void pr_iph(struct iphdr *ip);
 static void usage(void) __attribute__((noreturn));
+static void doexit (int);
 static unsigned short in_cksum(const unsigned short *addr, int len, unsigned short salt);
 static void pr_icmph(__u8 type, __u8 code, __u32 info, struct icmphdr *icp);
 static int parsetos(char *str);
@@ -572,6 +573,8 @@ int ping4_run(int argc, char **argv, struct addrinfo *ai, socket_st *sock)
 			options |= F_SOURCEROUTE;
 		}
 	}
+	set_signal(SIGINT, doexit);
+
 	while (argc > 0) {
 		target = *argv;
 
@@ -1721,4 +1724,9 @@ void usage(void)
 	);
 	ping6_usage(1);
 	exit(2);
+}
+
+static void doexit(int signo)
+{
+	exit (1);
 }
