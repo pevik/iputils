@@ -722,6 +722,10 @@ int main_loop(ping_func_set_st *fset, socket_st *sock, uint8_t *packet, int pack
 			msg.msg_controllen = sizeof(ans_data);
 
 			cc = recvmsg(sock->fd, &msg, polling);
+			fprintf(stderr, "%s:%d %s(): cc: %d\n", __FILE__, __LINE__, __func__, cc); // FIXME: debu
+			if (cc < 0)
+				fprintf(stderr, "%s:%d %s(): errno: %d, strerror: %s\n", __FILE__, __LINE__, __func__, errno, strerror(errno)); // FIXME: debug
+
 			polling = MSG_DONTWAIT;
 
 			if (cc < 0) {
