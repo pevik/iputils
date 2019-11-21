@@ -60,7 +60,9 @@ else
 endif
 
 if xsltproc_works == false
-	error('Man pages cannot be built: xsltproc does not work correctly')
+	message('Docs cannot be built: xsltproc does not work correctly')
+	build_mans = false
+	build_html_mans = false
 endif
 
 if build_mans
