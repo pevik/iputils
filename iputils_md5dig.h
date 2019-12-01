@@ -104,30 +104,27 @@ static void iputils_md5dig_init(iputils_md5dig_ctx *const ctx)
 
 	ctx->comm_sock = -1;
 	if ((ctx->bind_sock = socket(AF_ALG, SOCK_SEQPACKET, 0)) < 0)
-		return;
+		error(EXIT_FAILURE, errno, "cannot create AF_ALG socket");
 	if (bind(ctx->bind_sock, (struct sockaddr *)&sa, sizeof(sa)) < 0)
-		return;
-	ctx->comm_sock = accept(ctx->bind_sock, NULL, 0);
+		error(EXIT_FAILURE, errno, "cannot bind AF_ALG socket");
+	if (ctx->comm_sock = accept(ctx->bind_sock, NULL, 0) < 0)
+		error(EXIT_FAILURE, errno, "cannot accept AF_ALG socket");
 	return;
 }
 
 static void iputils_md5dig_update(iputils_md5dig_ctx *ctx,
 				  void const *const buf, const int len)
 {
-	if (ctx->comm_sock < 0)
-		return;
 	if (write(ctx->comm_sock, buf, len) != len)
-		error(0, errno, "write to AF_ALG socket failed");
+		error(EXIT_FAILURE, errno, "write to AF_ALG socket failed");
 	return;
 }
 
 static void iputils_md5dig_final(unsigned char *digest,
 				 iputils_md5dig_ctx const *const ctx)
 {
-	if (ctx->comm_sock < 0)
-		return;
 	if (read(ctx->comm_sock, digest, IPUTILS_MD5DIG_LEN) != IPUTILS_MD5DIG_LEN)
-		error(0, errno, "read from AF_ALG socket failed");
+		error(EXIT_FAILURE, errno, "read from AF_ALG socket failed");
 	close(ctx->comm_sock);
 	close(ctx->bind_sock);
 }
