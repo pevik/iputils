@@ -20,7 +20,6 @@
 #include <ctype.h>
 #include <errno.h>
 #include <string.h>
-#include <netdb.h>
 #include <setjmp.h>
 #include <netinet/icmp6.h>
 #include <asm/byteorder.h>
