@@ -42,7 +42,7 @@ matrix:
           compiler: clang
 
         - os: linux
-          env: DISTRO=ubuntu:eoan
+          env: DISTRO=ubuntu:eoan EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         - os: linux
