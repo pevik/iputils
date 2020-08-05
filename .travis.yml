@@ -38,7 +38,7 @@ matrix:
           compiler: clang
 
         - os: linux
-          env: DISTRO=ubuntu:eoan
+          env: DISTRO=ubuntu:focal
           compiler: gcc
 
         - os: linux
