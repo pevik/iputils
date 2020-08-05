@@ -10,31 +10,31 @@ matrix:
         # cross compilation
         # NOTE: cannot set cross compiler as compiler variable (meson tests also native build)
         - os: linux
-          env: DISTRO=debian:unstable VARIANT=cross-compile ARCH=arm64
+          env: DISTRO=debian:unstable VARIANT=cross-compile ARCH=arm64 EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         - os: linux
-          env: DISTRO=debian:testing VARIANT=cross-compile ARCH=ppc64el
+          env: DISTRO=debian:testing VARIANT=cross-compile ARCH=ppc64el EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         - os: linux
-          env: DISTRO=debian:testing VARIANT=cross-compile ARCH=s390x
+          env: DISTRO=debian:testing VARIANT=cross-compile ARCH=s390x EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         # musl (native)
         - os: linux
           # Message: WARNING: xsltproc: cannot process http://docbook.sourceforge.net/release/xsl-ns/current/manpages/docbook.xsl
           # doc/meson.build:70:1: ERROR: Problem encountered: Docs cannot be built: xsltproc does not work correctly
-          env: DISTRO=alpine:latest EXTRA_BUILD_OPTS='-DBUILD_HTML_MANS=false -DBUILD_MANS=false'
+          env: DISTRO=alpine:latest EXTRA_BUILD_OPTS='-DBUILD_HTML_MANS=false -DBUILD_MANS=false -DUSE_GETTEXT=false'
           compiler: gcc
 
         # glibc (gcc/clang)
         - os: linux
-          env: DISTRO=opensuse/tumbleweed
+          env: DISTRO=opensuse/tumbleweed EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         - os: linux
-          env: DISTRO=opensuse/leap
+          env: DISTRO=opensuse/leap EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: clang
 
         - os: linux
@@ -42,27 +42,27 @@ matrix:
           compiler: clang
 
         - os: linux
-          env: DISTRO=ubuntu:eoan
+          env: DISTRO=ubuntu:eoan EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         - os: linux
-          env: DISTRO=fedora:latest
+          env: DISTRO=fedora:latest EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: clang
 
         - os: linux
-          env: DISTRO=centos:7
+          env: DISTRO=centos:7 EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         - os: linux
-          env: DISTRO=debian:testing
+          env: DISTRO=debian:testing EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         - os: linux
-          env: DISTRO=debian:stable
+          env: DISTRO=debian:stable EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: gcc
 
         - os: linux
-          env: DISTRO=debian:oldstable
+          env: DISTRO=debian:oldstable EXTRA_BUILD_OPTS='-DUSE_GETTEXT=false'
           compiler: clang
 
 before_install:
