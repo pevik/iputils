@@ -1,7 +1,12 @@
 #!/bin/sh
+# Copyright (c) 2019-2021 Petr Vorel <pvorel@suse.cz>
 
-CFLAGS="${CFLAGS:--Wformat -Werror=format-security -Werror=implicit-function-declaration -Werror=return-type -fno-common}"
 CC="${CC:-gcc}"
+
+DEFAULT_CFLAGS='-Wformat -Werror=format-security -Werror=implicit-function-declaration -Werror=return-type -fno-common'
+$CC -fanalyzer 2>&1 | grep -q -- 'error:.*-fanalyzer' || DEFAULT_CFLAGS="$DEFAULT_CFLAGS -fanalyzer"
+CFLAGS="${CFLAGS:-$DEFAULT_CFLAGS}"
+
 BUILD_DIR="${BUILD_DIR:-builddir}"
 PREFIX="${PREFIX:-$HOME/iputils-install}"
 
