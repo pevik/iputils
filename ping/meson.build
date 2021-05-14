@@ -1,6 +1,6 @@
 inc = include_directories('..')
 
-executable('ping', [
+ping = executable('ping', [
 		'ping.c',
 		'ping_common.c',
 		'ping6_common.c',
@@ -26,3 +26,6 @@ if (setcap_ping)
 		setcap_path
 	)
 endif
+
+test('ping to 127.0.0.1', ping, args : ['-c 2', '127.0.0.1'])
+

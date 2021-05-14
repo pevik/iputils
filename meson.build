@@ -338,6 +338,8 @@ if build_mans == true or build_html_mans == true
 	subdir ('doc')
 endif
 
+subdir ('tests')
+
 output = '\n\nAPPLICATIONS (build)\n'
 output += 'man: ' + build_mans.to_string() + '\n'
 output += 'HTML man: ' + build_html_mans.to_string() + '\n'
@@ -374,4 +376,10 @@ message(output)
 
 ############################################################
 # FIXME: write tests
-#test('ping to 127.0.0.1', p, args : ['-p 1', '127.0.0.1'])
+#p = find_program('ping')
+#message('ping: @0@'.format(p))
+#test('ping to 127.0.0.1', p, args : ['-c 2', '127.0.0.1'])
+#run_command('ls', p)
+
+#run = join_paths(meson.build_root(), 'tests/run.sh')
+#run_command(run)
