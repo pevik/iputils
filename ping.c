@@ -106,7 +106,6 @@ static struct {
 int cmsg_len;
 
 static struct sockaddr_in source = { .sin_family = AF_INET };
-char *device;
 static int pmtudisc = -1;
 
 static void create_socket(socket_st *sock, int family, int socktype, int protocol, int requisite)
