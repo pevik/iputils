@@ -64,10 +64,18 @@ install()
 
 run_tests()
 {
+	local ret
+
 	echo "=== tests ==="
 	cd $BUILD_DIR
+
 	meson test
+	ret=$?
+	echo "$ret test failures"
+
 	cd - > /dev/null
+
+	return $ret
 }
 
 print_logs()
@@ -118,7 +126,7 @@ if [ -z "$cmd" -o "$cmd" = "test" ]; then
 	if [ -f "meson.cross" ]; then
 		echo "cross-compile build, skipping running tests" >&2
 	else
-		run_tests
-		print_logs $?
+		ret=$(run_tests)
+		print_logs $ret
 	fi
 fi
