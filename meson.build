@@ -246,7 +246,7 @@ if build_ping == true
 endif
 
 if build_tracepath == true
-	executable('tracepath', ['tracepath.c', git_version_h],
+	tracepath = executable('tracepath', ['tracepath.c', git_version_h],
 		dependencies : [idn_dep, intl_dep],
 		link_with : [libcommon],
 		install: true)
@@ -268,7 +268,7 @@ if build_traceroute6 == true
 endif
 
 if build_clockdiff == true
-	executable('clockdiff', ['clockdiff.c', git_version_h],
+	clockdiff = executable('clockdiff', ['clockdiff.c', git_version_h],
 		dependencies : [cap_dep, intl_dep],
 		link_with : [libcommon],
 		install: true)
@@ -283,7 +283,7 @@ if build_clockdiff == true
 endif
 
 if build_rdisc == true
-	executable('rdisc', ['rdisc.c', git_version_h],
+	rdisc = executable('rdisc', ['rdisc.c', git_version_h],
 		install_dir: sbindir,
 		link_with : [libcommon],
 		install: true)
@@ -308,7 +308,7 @@ if build_rdisc == true
 endif
 
 if build_arping == true
-	executable('arping', ['arping.c', git_version_h],
+	arping = executable('arping', ['arping.c', git_version_h],
 		dependencies : [rt_dep, cap_dep, idn_dep, intl_dep],
 		link_with : [libcommon],
 		install: true)
@@ -327,7 +327,7 @@ if build_tftpd == true
 endif
 
 if build_rarpd == true
-	executable('rarpd', ['rarpd.c', git_version_h],
+	rarpd = executable('rarpd', ['rarpd.c', git_version_h],
 		install_dir: sbindir,
 		link_with : [libcommon],
 		install: true)
