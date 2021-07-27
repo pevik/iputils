@@ -1,5 +1,11 @@
 # Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
 
+cmd = ping
+args = ['-V']
+
+name = cmd.name() + ' ' + ' '.join(args)
+test(name, cmd, args : args)
+
 foreach dst : [ 'localhost', '127.0.0.1' ] + ipv6_dst
   foreach switch : [ '', '-4' ] + ipv6_switch
 	args = [ '-c1', dst ]
@@ -12,8 +18,8 @@ foreach dst : [ 'localhost', '127.0.0.1' ] + ipv6_dst
 	  endif
 	endif
 
-	name = 'ping ' + ' '.join(args)
-	test(name, ping, args : args, should_fail : should_fail)
+	name = cmd.name() + ' ' + ' '.join(args)
+	test(name, cmd, args : args, should_fail : should_fail)
   endforeach
 endforeach
 
@@ -28,8 +34,8 @@ ping_tests_opt = [
 foreach dst : [ '127.0.0.1' ] + ipv6_dst
   foreach args : ping_tests_opt
 	args += [ dst ]
-	name = 'ping ' + ' '.join(args)
-	test(name, ping, args : args)
+	name = cmd.name() + ' ' + ' '.join(args)
+	test(name, cmd, args : args)
   endforeach
 endforeach
 
@@ -42,8 +48,8 @@ ping_tests_opt_fail = [
 foreach dst : [ '127.0.0.1' ] + ipv6_dst
   foreach args : ping_tests_opt_fail
 	args += [ dst ]
-	name = 'ping ' + ' '.join(args)
-	test(name, ping, args : args, should_fail : true)
+	name = cmd.name() + ' ' + ' '.join(args)
+	test(name, cmd, args : args, should_fail : true)
   endforeach
 endforeach
 
@@ -53,7 +59,7 @@ ping_tests_user_fail = [
 foreach dst : [ '127.0.0.1' ] + ipv6_dst
   foreach args : ping_tests_user_fail
 	args += [ dst ]
-	name = 'ping ' + ' '.join(args)
-	test(name, ping, args : args, should_fail : not run_as_root)
+	name = cmd.name() + ' ' + ' '.join(args)
+	test(name, cmd, args : args, should_fail : not run_as_root)
   endforeach
 endforeach

@@ -308,7 +308,7 @@ if build_rdisc == true
 endif
 
 if build_arping == true
-	executable('arping', ['arping.c', git_version_h],
+	arping = executable('arping', ['arping.c', git_version_h],
 		dependencies : [rt_dep, cap_dep, idn_dep, intl_dep],
 		link_with : [libcommon],
 		install: true)
