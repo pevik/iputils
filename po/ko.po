@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-18 21:07+0200\n"
-"PO-Revision-Date: 2021-08-04 04:04+0000\n"
+"PO-Revision-Date: 2021-08-05 18:04+0000\n"
 "Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/iputils/"
 "iputils/ko/>\n"
@@ -73,7 +73,7 @@ msgstr ""
 #: arping.c:285
 #, c-format
 msgid "Sent %d probes (%d broadcast(s))\n"
-msgstr ""
+msgstr "전송된 %d개의 시험 (%d개의 광역전송(s))\n"
 
 #: arping.c:286
 #, c-format
@@ -101,7 +101,7 @@ msgstr "광역 전송"
 #: arping.c:388
 #, c-format
 msgid "%s from "
-msgstr ""
+msgstr "~에서 %s "
 
 #: arping.c:388
 msgid "reply"
@@ -114,7 +114,7 @@ msgstr "요청"
 #: arping.c:393
 #, c-format
 msgid "for %s "
-msgstr ""
+msgstr "%s를 위한 "
 
 #: arping.c:398
 #, c-format
@@ -129,7 +129,7 @@ msgstr " %ld.%03ldms\n"
 #: arping.c:410
 #, c-format
 msgid " UNSOLICITED?\n"
-msgstr ""
+msgstr " 탐탁치 않은?\n"
 
 #: arping.c:561
 #, c-format
@@ -173,17 +173,17 @@ msgstr "경고: setsockopt(SO_DONTROUTE)"
 #: arping.c:1008
 #, c-format
 msgid "Interface \"%s\" is not ARPable (no ll address)\n"
-msgstr ""
+msgstr "연결장치 \"%s\"는 ARP를 사용 할 수 없습니다(연결된 주소(linked local)가 없습니다).\n"
 
 #: arping.c:1017
 #, c-format
 msgid "ARPING %s "
-msgstr ""
+msgstr "ARPING %s "
 
 #: arping.c:1018
 #, c-format
 msgid "from %s %s\n"
-msgstr ""
+msgstr "from %s %s\n"
 
 #: arping.c:1022
 msgid "no source address in not-DAD mode"
@@ -744,7 +744,7 @@ msgstr "너무 짧은 시간 간격으로 다중 전송 ping 신호를 보냅니
 
 #: ping/ping.c:809
 msgid "broadcast ping does not fragment"
-msgstr ""
+msgstr "광역전송 핑이 조각화되지 않음"
 
 #: ping/ping.c:833
 msgid "WARNING: setsockopt(ICMP_FILTER)"
@@ -882,7 +882,7 @@ msgstr "대상 호스트에 도달 할 수 없음\n"
 #: ping/ping.c:1152
 #, c-format
 msgid "Destination Protocol Unreachable\n"
-msgstr ""
+msgstr "대상 통신규약에 도달 할 수 없음\n"
 
 #: ping/ping.c:1155
 #, c-format
