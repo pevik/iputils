@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-28 09:58+0200\n"
-"PO-Revision-Date: 2021-08-26 19:04+0000\n"
+"PO-Revision-Date: 2021-08-29 20:04+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/iputils/"
 "iputils/fi/>\n"
@@ -74,7 +74,7 @@ msgstr ""
 
 #: arping.c:413
 msgid "Broadcast"
-msgstr ""
+msgstr "Kaikkilähetys"
 
 #: arping.c:414
 #, c-format
@@ -129,7 +129,7 @@ msgstr ""
 #: ping/ping.c:484 tracepath.c:472 tracepath.c:475 tracepath.c:478
 #: tracepath.c:499
 msgid "invalid argument"
-msgstr ""
+msgstr "virheellinen argumentti"
 
 #: arping.c:970
 #, c-format
@@ -251,7 +251,7 @@ msgstr ""
 #: ping/node_info.c:344 ping/node_info.c:386 ping/ping6_common.c:267
 #: ping/ping.c:452 ping/ping.c:515 ping/ping.c:925
 msgid "memory allocation failed"
-msgstr ""
+msgstr "muistin varaus ei onnistunut"
 
 #: ping/node_info.c:356
 #, c-format
@@ -447,7 +447,7 @@ msgstr ""
 #: ping/ping6_common.c:433
 #, c-format
 msgid "Unknown option "
-msgstr ""
+msgstr "tuntematon valitsin "
 
 #: ping/ping6_common.c:435
 #, c-format
@@ -541,7 +541,7 @@ msgstr ""
 #: ping/ping6_common.c:772
 #, c-format
 msgid " unknown"
-msgstr ""
+msgstr " tuntematon"
 
 #: ping/ping6_common.c:775
 #, c-format
@@ -621,7 +621,7 @@ msgstr ""
 #: ping/ping.c:394
 #, c-format
 msgid "cannot copy: %s"
-msgstr ""
+msgstr "'%s':ta ei voi kopioida"
 
 #: ping/ping.c:403
 #, c-format
@@ -636,7 +636,7 @@ msgstr ""
 #: ping/ping.c:434
 #, c-format
 msgid "invalid -M argument: %s"
-msgstr ""
+msgstr "virheellinen -M argumentti: %s"
 
 #: ping/ping.c:490
 msgid "bad linger time"
@@ -959,7 +959,7 @@ msgstr ""
 #: ping/ping.c:1262
 #, c-format
 msgid "Timestamp\n"
-msgstr ""
+msgstr "Aikaleima\n"
 
 #: ping/ping.c:1266
 #, c-format
