@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-28 09:58+0200\n"
-"PO-Revision-Date: 2021-08-29 20:04+0000\n"
+"PO-Revision-Date: 2021-09-21 19:05+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/iputils/"
 "iputils/fi/>\n"
@@ -56,7 +56,7 @@ msgstr ""
 #: arping.c:304
 #, c-format
 msgid "Received %d response(s)"
-msgstr ""
+msgstr "Vastaanotettu %d vastaus(ta)"
 
 #: arping.c:308
 #, c-format
@@ -66,11 +66,11 @@ msgstr "%d pyyntöä"
 #: arping.c:310
 #, c-format
 msgid "%s%d broadcast(s)"
-msgstr ""
+msgstr "%s%d kaikkilähetys(tä)"
 
 #: arping.c:413
 msgid "Unicast"
-msgstr ""
+msgstr "Yksilähetys"
 
 #: arping.c:413
 msgid "Broadcast"
@@ -79,25 +79,25 @@ msgstr "Kaikkilähetys"
 #: arping.c:414
 #, c-format
 msgid "%s from "
-msgstr ""
+msgstr "%s lähteestä "
 
 #: arping.c:414
 msgid "reply"
-msgstr ""
+msgstr "vastaus"
 
 #: arping.c:414
 msgid "request"
-msgstr ""
+msgstr "pyyntö"
 
 #: arping.c:419
 #, c-format
 msgid "for %s "
-msgstr ""
+msgstr "kohteelle %s "
 
 #: arping.c:424
 #, c-format
 msgid "for "
-msgstr ""
+msgstr "kohteelle "
 
 #: arping.c:434
 #, c-format
@@ -107,22 +107,22 @@ msgstr ""
 #: arping.c:436
 #, c-format
 msgid " UNSOLICITED?\n"
-msgstr ""
+msgstr " PYYTÄMÄTTÄ?\n"
 
 #: arping.c:587
 #, c-format
 msgid "Interface \"%s\" is down\n"
-msgstr ""
+msgstr "Liitäntä \"%s\" on poissa käytöstä\n"
 
 #: arping.c:595
 #, c-format
 msgid "Interface \"%s\" is not ARPable\n"
-msgstr ""
+msgstr "Liitäntä \"%s\" ei ole ARP-kysyttävä\n"
 
 #: arping.c:688
 #, c-format
 msgid "WARNING: using default broadcast address.\n"
-msgstr ""
+msgstr "VAROITUS: käytetään oletuskaikkilähetysosoitetta.\n"
 
 #: arping.c:898 arping.c:901 arping.c:904 ping/ping.c:369 ping/ping.c:415
 #: ping/ping.c:423 ping/ping.c:465 ping/ping.c:468 ping/ping.c:471
@@ -134,7 +134,7 @@ msgstr "virheellinen argumentti"
 #: arping.c:970
 #, c-format
 msgid "Device %s not available."
-msgstr ""
+msgstr "Laite %s ei ole käytettävissä."
 
 #: arping.c:971
 msgid "Suitable device could not be determined. Please, use option -I."
