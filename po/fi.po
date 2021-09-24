@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-28 09:58+0200\n"
-"PO-Revision-Date: 2021-09-21 19:05+0000\n"
+"PO-Revision-Date: 2021-09-25 12:05+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/iputils/"
 "iputils/fi/>\n"
@@ -138,7 +138,7 @@ msgstr "Laite %s ei ole käytettävissä."
 
 #: arping.c:971
 msgid "Suitable device could not be determined. Please, use option -I."
-msgstr ""
+msgstr "Sopivaa laitetta ei voitu määrittää. Ole hyvä ja käytä vaihtoehtoa -I."
 
 #: arping.c:991
 msgid "WARNING: interface is ignored"
