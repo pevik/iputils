@@ -82,6 +82,10 @@ jobs:
             env:
               CC: clang
 
+          - container: "centos:latest"
+            env:
+              CC: clang
+
     container:
       image: ${{ matrix.container }}
       env: ${{ matrix.env }}
