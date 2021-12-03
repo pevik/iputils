@@ -307,6 +307,7 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		int csum_offset = 2;
 		int sz_opt = sizeof(int);
 
+		fprintf(stderr, "%s:%d %s(): SOCK_RAW => SOL_RAW IPV6_CHECKSUM\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		err = setsockopt(sock->fd, SOL_RAW, IPV6_CHECKSUM, &csum_offset, sz_opt);
 		if (err < 0) {
 			/* checksum should be enabled by default and setting this

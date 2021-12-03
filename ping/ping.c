@@ -90,6 +90,13 @@ static void create_socket(struct ping_rts *rts, socket_st *sock, int family,
 	assert(sock->fd == -1);
 	assert(socktype == SOCK_DGRAM || socktype == SOCK_RAW);
 
+	if (socktype == SOCK_DGRAM)
+		fprintf(stderr, "%s:%d %s(): SOCK_DGRAM\n", __FILE__, __LINE__, __func__); // FIXME: debug
+
+	else if (socktype == SOCK_RAW)
+		fprintf(stderr, "%s:%d %s(): SOCK_RAW\n", __FILE__, __LINE__, __func__); // FIXME: debug
+
+
 	/* Attempt to create a ping socket if requested. Attempt to create a raw
 	 * socket otherwise or as a fallback. Well known errno values follow.
 	 *
@@ -132,16 +139,24 @@ static void create_socket(struct ping_rts *rts, socket_st *sock, int family,
 		sock->fd = socket(family, socktype, protocol);
 
 	/* Kernel doesn't support ping sockets. */
-	if (sock->fd == -1 && errno == EAFNOSUPPORT && family == AF_INET)
+	if (sock->fd == -1 && errno == EAFNOSUPPORT && family == AF_INET) {
+		fprintf(stderr, "%s:%d %s(): EAFNOSUPPORT: Kernel doesn't support ping sockets\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		do_fallback = 1;
-	if (sock->fd == -1 && errno == EPROTONOSUPPORT)
+	}
+
+	if (sock->fd == -1 && errno == EPROTONOSUPPORT) {
+		fprintf(stderr, "%s:%d %s(): EPROTONOSUPPORT: Kernel doesn't support ping sockets\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		do_fallback = 1;
+	}
 
 	/* User is not allowed to use ping sockets. */
-	if (sock->fd == -1 && errno == EACCES)
+	if (sock->fd == -1 && errno == EACCES) {
+		fprintf(stderr, "%s:%d %s(): EACCES\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		do_fallback = 1;
+	}
 
 	if (socktype == SOCK_RAW || do_fallback) {
+		fprintf(stderr, "%s:%d %s(): SOCK_RAW, do_fallback: %d\n", __FILE__, __LINE__, __func__, do_fallback); // FIXME: debug
 		socktype = SOCK_RAW;
 		sock->fd = socket(family, SOCK_RAW, protocol);
 	}
@@ -638,6 +653,14 @@ static void bind_to_device(struct ping_rts *rts, int fd, in_addr_t addr)
 int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 	      socket_st *sock)
 {
+
+	if (sock->socktype == SOCK_DGRAM)
+		fprintf(stderr, "%s:%d %s(): SOCK_DGRAM\n", __FILE__, __LINE__, __func__); // FIXME: debug
+
+	else if (sock->socktype == SOCK_RAW)
+		fprintf(stderr, "%s:%d %s(): SOCK_RAW\n", __FILE__, __LINE__, __func__); // FIXME: debug
+
+
 	static const struct addrinfo hints = {
 		.ai_family = AF_INET,
 		.ai_protocol = IPPROTO_UDP,
@@ -807,6 +830,7 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			      (1 << ICMP_PARAMETERPROB) |
 			      (1 << ICMP_REDIRECT)	|
 			      (1 << ICMP_ECHOREPLY));
+		fprintf(stderr, "%s:%d %s(): SOCK_RAW => SOL_RAW ICMP_FILTER\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		if (setsockopt(sock->fd, SOL_RAW, ICMP_FILTER, &filt, sizeof filt) == -1)
 			error(0, errno, _("WARNING: setsockopt(ICMP_FILTER)"));
 	}
@@ -1339,6 +1363,7 @@ int ping4_receive_error_msg(struct ping_rts *rts, socket_st *sock)
 			filt.data = ~((1 << ICMP_SOURCE_QUENCH) |
 				      (1 << ICMP_REDIRECT) |
 				      (1 << ICMP_ECHOREPLY));
+			fprintf(stderr, "%s:%d %s(): SOCK_RAW => SOL_RAW ICMP_FILTER\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			if (setsockopt(sock->fd, SOL_RAW, ICMP_FILTER, (const void *)&filt,
 				       sizeof(filt)) == -1)
 				error(2, errno, "setsockopt(ICMP_FILTER)");
