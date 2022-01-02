@@ -5,11 +5,20 @@
 # https://github.com/actions/virtual-environments/issues/668
 ipv6_dst = []
 ipv6_switch = []
-r = run_command('ip', '-6', 'a')
-if r.stdout().strip().contains('::1')
-  message('IPv6 enabled')
-  ipv6_dst = [ '::1' ]
-  ipv6_switch = [ '-6' ]
+
+if run_command('[', '-f', '/proc/net/if_inet6', ']').returncode() == 0
+  grep = find_program('grep', required: false)
+  if grep.found()
+	if run_command(grep, '-q', '^00000000000000000000000000000001.*lo$', '/proc/net/if_inet6').returncode() == 0
+	  message('IPv6 enabled')
+	  ipv6_dst = [ '::1' ]
+	  ipv6_switch = [ '-6' ]
+	else
+	  message('WARNING: lo missing IPv6 address ::1')
+	endif
+  else
+	message('WARNING: grep binary not found => disable IPv6 tests')
+  endif
 else
   message('WARNING: IPv6 disabled')
 endif
