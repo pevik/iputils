@@ -85,6 +85,8 @@ static void create_socket(struct ping_rts *rts, socket_st *sock, int family,
 {
 	int do_fallback = 0;
 
+	fprintf(stderr, "%s:%d %s(): START: requisite: %d\n", __FILE__, __LINE__, __func__, requisite); // FIXME: debug
+
 	errno = 0;
 
 	assert(sock->fd == -1);
@@ -153,8 +155,11 @@ static void create_socket(struct ping_rts *rts, socket_st *sock, int family,
 		if ((errno == EAFNOSUPPORT && family == AF_INET6 && requisite) ||
 		    rts->opt_verbose)
 			error(0, errno, "socket");
-		if (requisite)
+
+		if (requisite) {
+			fprintf(stderr, "%s:%d %s(): EXIT 2\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			exit(2);
+		}
 	} else
 		sock->socktype = socktype;
 }
@@ -312,6 +317,7 @@ main(int argc, char **argv)
 
 	/* Parse command line options */
 	while ((ch = getopt(argc, argv, "h?" "4bRT:" "6F:N:" "aABc:dDfi:I:l:Lm:M:nOp:qQ:rs:S:t:UvVw:W:")) != EOF) {
+		fprintf(stderr, "%s:%d %s(): opt: '%c' %s\n", __FILE__, __LINE__, __func__, ch, optarg ? optarg : ""); // FIXME: debug
 		switch(ch) {
 		/* IPv4 specific options */
 		case '4':
@@ -509,6 +515,7 @@ main(int argc, char **argv)
 	iputils_srand();
 
 	target = argv[argc - 1];
+	fprintf(stderr, "%s:%d %s(): target (orig): '%s'\n", __FILE__, __LINE__, __func__, target); // FIXME: debug
 
 	rts.outpack = malloc(rts.datalen + 28);
 	if (!rts.outpack)
@@ -520,10 +527,14 @@ main(int argc, char **argv)
 
 	/* Create sockets */
 	enable_capability_raw();
-	if (hints.ai_family != AF_INET6)
+	if (hints.ai_family != AF_INET6) {
+		fprintf(stderr, "%s:%d %s(): create_socket AF_INET\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		create_socket(&rts, &sock4, AF_INET, hints.ai_socktype, IPPROTO_ICMP,
 			      hints.ai_family == AF_INET);
+	}
+
 	if (hints.ai_family != AF_INET) {
+		fprintf(stderr, "%s:%d %s(): create_socket AF_INET6\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		create_socket(&rts, &sock6, AF_INET6, hints.ai_socktype, IPPROTO_ICMPV6, sock4.fd == -1);
 		/* This may not be needed if both protocol versions always had the same value, but
 		 * since I don't know that, it's better to be safe than sorry. */
@@ -535,17 +546,27 @@ main(int argc, char **argv)
 
 	/* Limit address family on single-protocol systems */
 	if (hints.ai_family == AF_UNSPEC) {
-		if (sock4.fd == -1)
+		fprintf(stderr, "%s:%d %s(): hints.ai_family == AF_UNSPEC\n", __FILE__, __LINE__, __func__); // FIXME: debug
+		if (sock4.fd == -1) {
+			fprintf(stderr, "%s:%d %s(): hints.ai_family = AF_INET6\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			hints.ai_family = AF_INET6;
-		else if (sock6.fd == -1)
+		}
+		else if (sock6.fd == -1) {
+			fprintf(stderr, "%s:%d %s(): hints.ai_family = AF_INET4\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			hints.ai_family = AF_INET;
+		}
 	}
 
 	/* Set socket options */
-	if (rts.settos)
+	if (rts.settos) {
+		fprintf(stderr, "%s:%d %s(): set_socket_option IPv4\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		set_socket_option(&sock4, IPPROTO_IP, IP_TOS, &rts.settos, sizeof rts.settos);
-	if (rts.tclass)
+	}
+
+	if (rts.tclass) {
+		fprintf(stderr, "%s:%d %s(): set_socket_option IPv6\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		set_socket_option(&sock6, IPPROTO_IPV6, IPV6_TCLASS, &rts.tclass, sizeof rts.tclass);
+	}
 
 	/* getaddrinfo fails to indicate a scopeid when not used in dual-stack mode.
 	 * Work around by always using dual-stack name resolution.
@@ -555,9 +576,12 @@ main(int argc, char **argv)
 	int target_ai_family = hints.ai_family;
 	hints.ai_family = AF_UNSPEC;
 
+	fprintf(stderr, "%s:%d %s(): target (used): '%s'\n", __FILE__, __LINE__, __func__, target); // FIXME: debug
 	ret_val = getaddrinfo(target, NULL, &hints, &result);
-	if (ret_val)
+	if (ret_val) {
+		fprintf(stderr, "%s:%d %s(): getaddrinfo() error\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		error(2, 0, "%s: %s", target, gai_strerror(ret_val));
+	}
 
 	for (ai = result; ai; ai = ai->ai_next) {
 		if (target_ai_family != AF_UNSPEC &&
