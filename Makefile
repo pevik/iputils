@@ -34,7 +34,7 @@ WITHOUT_IFADDRS=no
 ARPING_DEFAULT_DEVICE=
 
 # GNU TLS library for ping6 [yes|no|static]
-USE_GNUTLS=yes
+USE_GNUTLS=no
 # Crypto library for ping6 [shared|static|no]
 USE_CRYPTO=shared
 # Resolv library for ping6 [yes|static]
