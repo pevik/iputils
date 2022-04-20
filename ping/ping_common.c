@@ -307,33 +307,43 @@ int pinger(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock)
 	static int tokens;
 	int i;
 
+	fprintf(stderr, "%s:%d %s(): START\n", __FILE__, __LINE__, __func__); // FIXME: debug
+
 	/* Have we already sent enough? If we have, return an arbitrary positive value. */
-	if (rts->exiting || (rts->npackets && rts->ntransmitted >= rts->npackets && !rts->deadline))
+	if (rts->exiting || (rts->npackets && rts->ntransmitted >= rts->npackets && !rts->deadline)) {
+		fprintf(stderr, "%s:%d %s(): return 1000\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		return 1000;
+	}
 
 	/* Check that packets < rate*time + preload */
 	if (rts->cur_time.tv_sec == 0) {
-		clock_gettime(CLOCK_MONOTONIC_RAW, &rts->cur_time);
+		fprintf(stderr, "%s:%d %s(): if clock_gettime(CLOCK_MONOTONIC\n", __FILE__, __LINE__, __func__); // FIXME: debug
+		clock_gettime(CLOCK_MONOTONIC, &rts->cur_time);
 		tokens = rts->interval * (rts->preload - 1);
 	} else {
 		long ntokens, tmp;
 		struct timespec tv;
 
-		clock_gettime(CLOCK_MONOTONIC_RAW, &tv);
+		fprintf(stderr, "%s:%d %s(): else clock_gettime(CLOCK_MONOTONIC\n", __FILE__, __LINE__, __func__); // FIXME: debug
+		clock_gettime(CLOCK_MONOTONIC, &tv);
 		ntokens = (tv.tv_sec - rts->cur_time.tv_sec) * 1000 +
 			  (tv.tv_nsec - rts->cur_time.tv_nsec) / 1000000;
 		if (!rts->interval) {
 			/* Case of unlimited flood is special;
 			 * if we see no reply, they are limited to 100pps */
-			if (ntokens < MININTERVAL && in_flight(rts) >= rts->preload)
+			if (ntokens < MININTERVAL && in_flight(rts) >= rts->preload) {
+				fprintf(stderr, "%s:%d %s(): return MININTERVAL - ntokens: %ld\n", __FILE__, __LINE__, __func__, MININTERVAL - ntokens); // FIXME: debug
 				return MININTERVAL - ntokens;
+			}
 		}
 		ntokens += tokens;
 		tmp = (long)rts->interval * (long)rts->preload;
 		if (tmp < ntokens)
 			ntokens = tmp;
-		if (ntokens < rts->interval)
+		if (ntokens < rts->interval) {
+			fprintf(stderr, "%s:%d %s(): return rts->interval - ntokens: %ld\n", __FILE__, __LINE__, __func__, rts->interval - ntokens); // FIXME: debug
 			return rts->interval - ntokens;
+		}
 
 		rts->cur_time = tv;
 		tokens = ntokens - rts->interval;
@@ -360,6 +370,7 @@ resend:
 			    in_flight(rts) < rts->screen_width)
 				write_stdout(".", 1);
 		}
+		fprintf(stderr, "%s:%d %s(): return rts->interval - tokens: %d\n", __FILE__, __LINE__, __func__, rts->interval - tokens); // FIXME: debug
 		return rts->interval - tokens;
 	}
 
@@ -368,6 +379,7 @@ resend:
 		/* Apparently, it is some fatal bug. */
 		abort();
 	} else if (errno == ENOBUFS || errno == ENOMEM) {
+		fprintf(stderr, "%s:%d %s(): errno == ENOBUFS || errno == ENOMEM\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		int nores_interval;
 
 		/* Device queue overflow or OOM. Packet is not sent. */
@@ -388,6 +400,7 @@ resend:
 		 * Expected timings are screwed up in any case, but we will
 		 * exit some day. :-) */
 	} else if (errno == EAGAIN) {
+		fprintf(stderr, "%s:%d %s(): errno == EAGAIN\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		/* Socket buffer is full. */
 		tokens += rts->interval;
 		return MININTERVAL;
@@ -400,15 +413,19 @@ resend:
 			 * the more specific errno as the error, and treat this
 			 * as a hard local error. */
 			i = 0;
+			fprintf(stderr, "%s:%d %s(): hard_local_error\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			goto hard_local_error;
 		}
 		/* Compatibility with old linuces. */
 		if (i == 0 && rts->confirm_flag && errno == EINVAL) {
+			fprintf(stderr, "%s:%d %s(): rts->confirm_flag && errno == EINVAL\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			rts->confirm_flag = 0;
 			errno = 0;
 		}
-		if (!errno)
+		if (!errno) {
+			fprintf(stderr, "%s:%d %s(): resend\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			goto resend;
+		}
 	}
 
 hard_local_error:
@@ -537,7 +554,8 @@ void setup(struct ping_rts *rts, socket_st *sock)
 	sigemptyset(&sset);
 	sigprocmask(SIG_SETMASK, &sset, NULL);
 
-	clock_gettime(CLOCK_MONOTONIC_RAW, &rts->start_time);
+	fprintf(stderr, "%s:%d %s(): clock_gettime(CLOCK_MONOTONIC\n", __FILE__, __LINE__, __func__); // FIXME: debug
+	clock_gettime(CLOCK_MONOTONIC, &rts->start_time);
 
 	if (rts->deadline) {
 		struct itimerval it;
@@ -587,8 +605,11 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 
 		/* Send probes scheduled to this time. */
 		do {
+			fprintf(stderr, "%s:%d %s(): pev: run pinger\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			next = pinger(rts, fset, sock);
+			fprintf(stderr, "%s:%d %s(): next (pinger): %d\n", __FILE__, __LINE__, __func__, next); // FIXME: debug
 			next = schedule_exit(rts, next);
+			fprintf(stderr, "%s:%d %s(): next (schedule_exit): %d\n", __FILE__, __LINE__, __func__, next); // FIXME: debug
 		} while (next <= 0);
 
 		/* "next" is time to send next probe, if positive.
@@ -702,8 +723,10 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 				fset->install_filter(rts, sock);
 
 			/* If nothing is in flight, "break" returns us to pinger. */
-			if (in_flight(rts) == 0)
+			if (in_flight(rts) == 0) {
+				fprintf(stderr, "%s:%d %s(): return\n", __FILE__, __LINE__, __func__); // FIXME: debug
 				break;
+			}
 
 			/* Otherwise, try to recvmsg() again. recvmsg()
 			 * is nonblocking after the first iteration, so that
