@@ -257,15 +257,21 @@ static int niquery_option_subject_addr_handler(struct ping_ni *ni, int index, co
 	}
 
 	ret_val = getaddrinfo(arg, 0, &hints, &result);
+	fprintf(stderr, "%s:%d %s(): getaddrinfo ret: %d\n", __FILE__, __LINE__, __func__, ret_val); // FIXME: debug
 	if (ret_val) {
 		error(0, 0, "%s: %s", arg, gai_strerror(ret_val));
 		return -1;
 	}
 
+	int i = 0;
 	for (ai = result; ai; ai = ai->ai_next) {
+		fprintf(stderr, "%s:%d %s(): * i: %d\n", __FILE__, __LINE__, __func__, i++); // FIXME: debug
 		void *p = malloc(ni->subject_len);
-		if (!p)
+		if (!p) {
+			fprintf(stderr, "%s:%d %s(): continue\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			continue;
+		}
+		fprintf(stderr, "%s:%d %s(): found\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		memcpy(p, (uint8_t *)ai->ai_addr + offset, ni->subject_len);
 		free(ni->subject);
 		ni->subject = p;

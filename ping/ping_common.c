@@ -576,7 +576,9 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 
 	iov.iov_base = (char *)packet;
 
+	int i = 0;
 	for (;;) {
+		fprintf(stderr, "%s:%d %s(): loop: i = %d\n", __FILE__, __LINE__, __func__, i++); // FIXME: debug
 		/* Check exit conditions. */
 		if (rts->exiting)
 			break;
@@ -590,6 +592,7 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 
 		/* Send probes scheduled to this time. */
 		do {
+			fprintf(stderr, "%s:%d %s(): next: %d\n", __FILE__, __LINE__, __func__, next); // FIXME: debug
 			next = pinger(rts, fset, sock);
 			next = schedule_exit(rts, next);
 		} while (next <= 0);
@@ -607,11 +610,13 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 		polling = 0;
 		recv_error = 0;
 		if (rts->opt_adaptive || rts->opt_flood_poll || next < SCHINT(rts->interval)) {
+			fprintf(stderr, "%s:%d %s(): IF\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			int recv_expected = in_flight(rts);
 
 			/* If we are here, recvmsg() is unable to wait for
 			 * required timeout. */
 			if (1000 % HZ == 0 ? next <= 1000 / HZ : (next < INT_MAX / HZ && next * HZ <= 1000)) {
+				fprintf(stderr, "%s:%d %s(): SHORT INTERVAL\n", __FILE__, __LINE__, __func__); // FIXME: debug
 				/* Very short timeout... So, if we wait for
 				 * something, we sleep for MININTERVAL.
 				 * Otherwise, spin! */
@@ -622,10 +627,12 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 					/* When spinning, no reasons to poll.
 					 * Use nonblocking recvmsg() instead. */
 					polling = MSG_DONTWAIT;
+					fprintf(stderr, "%s:%d %s(): polling = MSG_DONTWAIT\n", __FILE__, __LINE__, __func__); // FIXME: debug
 					/* But yield yet. */
 					sched_yield();
 				}
 			}
+			fprintf(stderr, "%s:%d %s(): polling: %d\n", __FILE__, __LINE__, __func__, polling); // FIXME: debug
 
 			if (!polling &&
 			    (rts->opt_adaptive || rts->opt_flood_poll || rts->interval)) {
@@ -634,14 +641,20 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 				pset.events = POLLIN;
 				pset.revents = 0;
 				if (poll(&pset, 1, next) < 1 ||
-				    !(pset.revents & (POLLIN | POLLERR)))
+				    !(pset.revents & (POLLIN | POLLERR))) {
+					fprintf(stderr, "%s:%d %s(): continue\n", __FILE__, __LINE__, __func__); // FIXME: debug
 					continue;
+				}
 				polling = MSG_DONTWAIT;
+				fprintf(stderr, "%s:%d %s(): polling = MSG_DONTWAIT\n", __FILE__, __LINE__, __func__); // FIXME: debug
 				recv_error = pset.revents & POLLERR;
 			}
 		}
+		fprintf(stderr, "%s:%d %s(): recv_error: %d\n", __FILE__, __LINE__, __func__, recv_error); // FIXME: debug
 
+		int ii = 0;
 		for (;;) {
+			fprintf(stderr, "%s:%d %s(): ii: %d\n", __FILE__, __LINE__, __func__, ii++); // FIXME: debug
 			struct timeval *recv_timep = NULL;
 			struct timeval recv_time;
 			int not_ours = 0; /* Raw socket can receive messages
@@ -656,7 +669,9 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 			msg.msg_control = ans_data;
 			msg.msg_controllen = sizeof(ans_data);
 
+			fprintf(stderr, "%s:%d %s(): sock->fd: %d, polling: %d, msg.msg_controllen: %ld, msg.msg_namelen: %d, packlen: %d\n", __FILE__, __LINE__, __func__, sock->fd, polling, msg.msg_controllen, msg.msg_namelen, packlen); // FIXME: debug
 			cc = recvmsg(sock->fd, &msg, polling);
+			fprintf(stderr, "%s:%d %s(): cc: %d\n", __FILE__, __LINE__, __func__, cc); // FIXME: debug
 			polling = MSG_DONTWAIT;
 
 			if (cc < 0) {
@@ -664,6 +679,7 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 				 * on the socket, try to read the error queue.
 				 * Otherwise, give up.
 				 */
+				fprintf(stderr, "%s:%d %s(): errno: %d\n", __FILE__, __LINE__, __func__, errno); // FIXME: debug
 				if ((errno == EAGAIN && !recv_error) ||
 				    errno == EINTR)
 					break;
@@ -678,14 +694,23 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 			} else {
 
 #ifdef SO_TIMESTAMP
+				fprintf(stderr, "%s:%d %s(): #ifdef SO_TIMESTAMP\n", __FILE__, __LINE__, __func__); // FIXME: debug
 				struct cmsghdr *c;
 
+				int iii = 0;
 				for (c = CMSG_FIRSTHDR(&msg); c; c = CMSG_NXTHDR(&msg, c)) {
+					fprintf(stderr, "%s:%d %s(): iii: %d, c->cmsg_level: %d\n", __FILE__, __LINE__, __func__, iii++, c->cmsg_level); // FIXME: debug
 					if (c->cmsg_level != SOL_SOCKET ||
-					    c->cmsg_type != SO_TIMESTAMP)
+					    c->cmsg_type != SO_TIMESTAMP) {
+						fprintf(stderr, "%s:%d %s(): continue 1\n", __FILE__, __LINE__, __func__); // FIXME: debug
 						continue;
-					if (c->cmsg_len < CMSG_LEN(sizeof(struct timeval)))
+					}
+
+					if (c->cmsg_len < CMSG_LEN(sizeof(struct timeval))) {
+						fprintf(stderr, "%s:%d %s(): continue 2\n", __FILE__, __LINE__, __func__); // FIXME: debug
 						continue;
+					}
+
 					recv_timep = (struct timeval *)CMSG_DATA(c);
 				}
 #endif
@@ -699,6 +724,7 @@ int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock,
 
 				not_ours = fset->parse_reply(rts, sock, &msg, cc, addrbuf, recv_timep);
 			}
+			fprintf(stderr, "%s:%d %s(): not_ours: %d\n", __FILE__, __LINE__, __func__, not_ours); // FIXME: debug
 
 			/* See? ... someone runs another ping on this host. */
 			if (not_ours && sock->socktype == SOCK_RAW)

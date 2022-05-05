@@ -558,10 +558,13 @@ main(int argc, char **argv)
 	hints.ai_family = AF_UNSPEC;
 
 	ret_val = getaddrinfo(target, NULL, &hints, &result);
+	fprintf(stderr, "%s:%d %s(): getaddrinfo ret: %d\n", __FILE__, __LINE__, __func__, ret_val); // FIXME: debug
 	if (ret_val)
 		error(2, 0, "%s: %s", target, gai_strerror(ret_val));
 
+	int i = 0;
 	for (ai = result; ai; ai = ai->ai_next) {
+		fprintf(stderr, "%s:%d %s(): * i: %d\n", __FILE__, __LINE__, __func__, i++); // FIXME: debug
 		if (target_ai_family != AF_UNSPEC &&
 			target_ai_family != ai->ai_family) {
 			if (!ai->ai_next) {
@@ -570,18 +573,23 @@ main(int argc, char **argv)
 				 */
 				error(2, 0, "%s: %s", target, gai_strerror(EAI_ADDRFAMILY));
 			}
+			fprintf(stderr, "%s:%d %s(): continue\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			continue;
 		}
 		switch (ai->ai_family) {
 		case AF_INET:
+			fprintf(stderr, "%s:%d %s(): AF_INET\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			ret_val = ping4_run(&rts, argc, argv, ai, &sock4);
 			break;
 		case AF_INET6:
+			fprintf(stderr, "%s:%d %s(): AF_INET6\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			ret_val = ping6_run(&rts, argc, argv, ai, &sock6);
 			break;
 		default:
 			error(2, 0, _("unknown protocol family: %d"), ai->ai_family);
 		}
+
+		fprintf(stderr, "%s:%d %s(): ret_val: %d\n", __FILE__, __LINE__, __func__, ret_val); // FIXME: debug
 
 		if (ret_val >= 0)
 			break;
@@ -620,10 +628,12 @@ static void bind_to_device(struct ping_rts *rts, int fd, in_addr_t addr)
 	errno_save = errno;
 	disable_capability_raw();
 
+	fprintf(stderr, "%s:%d %s(): rc: %d\n", __FILE__, __LINE__, __func__, rc); // FIXME: debug
 	if (rc != -1)
 		return;
 
 	if (IN_MULTICAST(ntohl(addr))) {
+		fprintf(stderr, "%s:%d %s(): IN_MULTICAST\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		struct ip_mreqn imr;
 
 		memset(&imr, 0, sizeof(imr));
@@ -709,7 +719,9 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			error(2, errno, "socket");
 
 		if (rts->device) {
+			fprintf(stderr, "%s:%d %s(): probe_fd\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			bind_to_device(rts, probe_fd, dst.sin_addr.s_addr);
+			fprintf(stderr, "%s:%d %s(): sock->fd\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			bind_to_device(rts, sock->fd, dst.sin_addr.s_addr);
 		}
 
@@ -752,19 +764,27 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			ret = getifaddrs(&ifa0);
 			if (ret)
 				error(2, errno, _("gatifaddrs failed"));
+
+			int i = 0;
 			for (ifa = ifa0; ifa; ifa = ifa->ifa_next) {
+				fprintf(stderr, "%s:%d %s(): * i = %d\n", __FILE__, __LINE__, __func__, i); // FIXME: debug
 				if (!ifa->ifa_name || !ifa->ifa_addr ||
-				    ifa->ifa_addr->sa_family != AF_INET)
+				    ifa->ifa_addr->sa_family != AF_INET) {
+					fprintf(stderr, "%s:%d %s(): continue\n", __FILE__, __LINE__, __func__); // FIXME: debug
 					continue;
+				}
 				if (!strcmp(ifa->ifa_name, rts->device) &&
 				    !memcmp(&((struct sockaddr_in *)ifa->ifa_addr)->sin_addr,
-					    &rts->source.sin_addr, sizeof(rts->source.sin_addr)))
+					    &rts->source.sin_addr, sizeof(rts->source.sin_addr))) {
+					fprintf(stderr, "%s:%d %s(): break\n", __FILE__, __LINE__, __func__); // FIXME: debug
 					break;
+				}
 			}
 			if (ifa && !memcmp(&((struct sockaddr_in *)ifa->ifa_addr)->sin_addr,
 			    &dst.sin_addr, sizeof(rts->source.sin_addr))) {
 				enable_capability_raw();
-				setsockopt(sock->fd, SOL_SOCKET, SO_BINDTODEVICE, "", 0);
+				int ret = setsockopt(sock->fd, SOL_SOCKET, SO_BINDTODEVICE, "", 0);
+				fprintf(stderr, "%s:%d %s(): setsockopt SOL_SOCKET, SO_BINDTODEVICE: %d\n", __FILE__, __LINE__, __func__, ret); // FIXME: debug
 				disable_capability_raw();
 			}
 			freeifaddrs(ifa0);
@@ -774,13 +794,17 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		close(probe_fd);
 
 	} else if (rts->device) {
+		fprintf(stderr, "%s:%d %s(): bind_to_device\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		bind_to_device(rts, sock->fd, rts->whereto.sin_addr.s_addr);
 	}
 
-	if (rts->whereto.sin_addr.s_addr == 0)
+	if (rts->whereto.sin_addr.s_addr == 0) {
+		fprintf(stderr, "%s:%d %s(): rts->whereto.sin_addr.s_addr == 0\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		rts->whereto.sin_addr.s_addr = rts->source.sin_addr.s_addr;
+	}
 
 	if (rts->broadcast_pings || IN_MULTICAST(ntohl(rts->whereto.sin_addr.s_addr))) {
+		fprintf(stderr, "%s:%d %s(): rts->multicast = 1\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		rts->multicast = 1;
 		if (rts->uid) {
 			if (rts->interval < 1000)
@@ -788,11 +812,14 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			if (rts->pmtudisc >= 0 && rts->pmtudisc != IP_PMTUDISC_DO)
 				error(2, 0, _("broadcast ping does not fragment"));
 		}
-		if (rts->pmtudisc < 0)
+		if (rts->pmtudisc < 0) {
+			fprintf(stderr, "%s:%d %s(): rts->pmtudisc < 0\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			rts->pmtudisc = IP_PMTUDISC_DO;
+		}
 	}
 
 	if (rts->pmtudisc >= 0) {
+		fprintf(stderr, "%s:%d %s(): rts->pmtudisc >= 0\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		if (setsockopt(sock->fd, SOL_IP, IP_MTU_DISCOVER, &rts->pmtudisc, sizeof rts->pmtudisc) == -1)
 			error(2, errno, "IP_MTU_DISCOVER");
 	}
@@ -802,6 +829,7 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		error(2, errno, "bind");
 
 	if (sock->socktype == SOCK_RAW) {
+		fprintf(stderr, "%s:%d %s(): sock->socktype == SOCK_RAW\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		struct icmp_filter filt;
 		filt.data = ~((1 << ICMP_SOURCE_QUENCH) |
 			      (1 << ICMP_DEST_UNREACH)	|
@@ -818,6 +846,7 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		error(0, 0, _("WARNING: your kernel is veeery old. No problems."));
 
 	if (sock->socktype == SOCK_DGRAM) {
+		fprintf(stderr, "%s:%d %s(): sock->socktype == SOCK_DGRAM\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		if (setsockopt(sock->fd, SOL_IP, IP_RECVTTL, &hold, sizeof hold))
 			error(0, errno, _("WARNING: setsockopt(IP_RECVTTL)"));
 		if (setsockopt(sock->fd, SOL_IP, IP_RETOPTS, &hold, sizeof hold))

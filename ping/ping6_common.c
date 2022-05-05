@@ -95,6 +95,7 @@ int ntohsp(uint16_t *p)
 unsigned int if_name2index(const char *ifname)
 {
 	unsigned int i = if_nametoindex(ifname);
+	fprintf(stderr, "%s:%d %s(): ifname: %s (%d)\n", __FILE__, __LINE__, __func__, ifname, i); // FIXME: debug
 	if (!i)
 		error(2, 0, _("unknown iface: %s"), ifname);
 	return i;
@@ -139,6 +140,8 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		rts->opt_numeric = 1;
 
 	if (IN6_IS_ADDR_UNSPECIFIED(&rts->firsthop.sin6_addr)) {
+		fprintf(stderr, "%s:%d %s(): IN6_IS_ADDR_UNSPECIFIED firsthop.sin6_addr\n", __FILE__, __LINE__, __func__); // FIXME: debug
+		fprintf(stderr, "%s:%d %s(): scope_id: %d, rts->firsthop.sin6_scope_id: %d\n", __FILE__, __LINE__, __func__, scope_id, rts->firsthop.sin6_scope_id); // FIXME: debug
 		memcpy(&rts->firsthop.sin6_addr, &rts->whereto6.sin6_addr, 16);
 		rts->firsthop.sin6_scope_id = rts->whereto6.sin6_scope_id;
 		/* Verify scope_id is the same as intermediate nodes */
@@ -151,6 +154,7 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 	rts->hostname = target;
 
 	if (IN6_IS_ADDR_UNSPECIFIED(&rts->source6.sin6_addr)) {
+		fprintf(stderr, "%s:%d %s(): IN6_IS_ADDR_UNSPECIFIED(&rts->source6.sin6_addr)\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		socklen_t alen;
 		int probe_fd = socket(AF_INET6, SOCK_DGRAM, 0);
 
@@ -170,10 +174,13 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 				rts->firsthop.sin6_scope_id = iface;
 			enable_capability_raw();
 #ifdef IPV6_RECVPKTINFO
+			fprintf(stderr, "%s:%d %s(): #ifdef IPV6_RECVPKTINFO\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			if (setsockopt(probe_fd, IPPROTO_IPV6, IPV6_PKTINFO, &ipi, sizeof ipi) == -1 ||
 			    setsockopt(sock->fd, IPPROTO_IPV6, IPV6_PKTINFO, &ipi, sizeof ipi) == -1) {
 				error(2, errno, "setsockopt(IPV6_PKTINFO)");
 			}
+#else
+			fprintf(stderr, "%s:%d %s(): NOT #ifdef IPV6_RECVPKTINFO\n", __FILE__, __LINE__, __func__); // FIXME: debug
 #endif
 			if (setsockopt(probe_fd, SOL_SOCKET, SO_BINDTODEVICE, rts->device, strlen(rts->device) + 1) == -1 ||
 			    setsockopt(sock->fd, SOL_SOCKET, SO_BINDTODEVICE, rts->device, strlen(rts->device) + 1) == -1) {
@@ -183,8 +190,10 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		}
 
 		if (!IN6_IS_ADDR_LINKLOCAL(&rts->firsthop.sin6_addr) &&
-		    !IN6_IS_ADDR_MC_LINKLOCAL(&rts->firsthop.sin6_addr))
+		    !IN6_IS_ADDR_MC_LINKLOCAL(&rts->firsthop.sin6_addr)) {
 			rts->firsthop.sin6_family = AF_INET6;
+			fprintf(stderr, "%s:%d %s(): rts->firsthop.sin6_family = AF_INET6\n", __FILE__, __LINE__, __func__); // FIXME: debug
+		}
 
 		if (rts->opt_mark)
 			sock_setmark(rts->mark, probe_fd);
@@ -209,14 +218,21 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			if (getifaddrs(&ifa0))
 				error(2, errno, "getifaddrs");
 
+			int i = 0;
 			for (ifa = ifa0; ifa; ifa = ifa->ifa_next) {
+				fprintf(stderr, "%s:%d %s(): ** i = %d\n", __FILE__, __LINE__, __func__, i++); // FIXME: debug
 				if (!ifa->ifa_name || !ifa->ifa_addr ||
-				    ifa->ifa_addr->sa_family != AF_INET6)
+				    ifa->ifa_addr->sa_family != AF_INET6) {
+					fprintf(stderr, "%s:%d %s(): continue\n", __FILE__, __LINE__, __func__); // FIXME: debug
 					continue;
+				}
+				fprintf(stderr, "%s:%d %s(): ifa->ifa_name: %s, ifa->ifa_flags: %d\n", __FILE__, __LINE__, __func__, ifa->ifa_name, ifa->ifa_flags); // FIXME: debug
 				if (!strcmp(ifa->ifa_name, rts->device) &&
 				    IN6_ARE_ADDR_EQUAL(&((struct sockaddr_in6 *)ifa->ifa_addr)->sin6_addr,
-						       &rts->source6.sin6_addr))
+						       &rts->source6.sin6_addr)) {
+					fprintf(stderr, "%s:%d %s(): break\n", __FILE__, __LINE__, __func__); // FIXME: debug
 					break;
+				}
 			}
 			if (!ifa)
 				error(0, 0, _("Warning: source address might be selected on device other than: %s"), rts->device);
@@ -228,6 +244,7 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		rts->source6.sin6_scope_id = if_name2index(rts->device);
 
 	if (rts->device) {
+		fprintf(stderr, "%s:%d %s(): device\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		struct cmsghdr *cmsg;
 		struct in6_pktinfo *ipi;
 		int rc;
@@ -242,8 +259,10 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		ipi = (struct in6_pktinfo *)CMSG_DATA(cmsg);
 		memset(ipi, 0, sizeof(*ipi));
 		ipi->ipi6_ifindex = if_name2index(rts->device);
+		fprintf(stderr, "%s:%d %s(): if_name2index(rts->device): %d\n", __FILE__, __LINE__, __func__, if_name2index(rts->device)); // FIXME: debug
 
 		if (rts->opt_strictsource) {
+			fprintf(stderr, "%s:%d %s(): rts->opt_strictsource\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			enable_capability_raw();
 			rc = setsockopt(sock->fd, SOL_SOCKET, SO_BINDTODEVICE,
 					rts->device, strlen(rts->device) + 1);
@@ -276,13 +295,16 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			break;
 		}
 	}
+	fprintf(stderr, "%s:%d %s(): rts->subnet_router_anycast: %d\n", __FILE__, __LINE__, __func__, rts->subnet_router_anycast); // FIXME: debug
 
 	if (rts->pmtudisc >= 0) {
+		fprintf(stderr, "%s:%d %s(): rts->pmtudisc\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		if (setsockopt(sock->fd, IPPROTO_IPV6, IPV6_MTU_DISCOVER, &rts->pmtudisc,
 			       sizeof rts->pmtudisc) == -1)
 			error(2, errno, "IPV6_MTU_DISCOVER");
 	}
 
+	fprintf(stderr, "%s:%d %s(): rts->opt_strictsource: %d\n", __FILE__, __LINE__, __func__, rts->opt_strictsource); // FIXME: debug
 	if (rts->opt_strictsource &&
 	    bind(sock->fd, (struct sockaddr *)&rts->source6, sizeof rts->source6) == -1)
 		error(2, errno, "bind icmp socket");
@@ -307,6 +329,7 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 
 #ifdef __linux__
 	if (sock->socktype == SOCK_RAW) {
+		fprintf(stderr, "%s:%d %s(): sock->socktype == SOCK_RAW\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		int csum_offset = 2;
 		int sz_opt = sizeof(int);
 
@@ -327,10 +350,13 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 
 		ICMP6_FILTER_SETBLOCKALL(&filter);
 
-		if (niquery_is_enabled(&rts->ni))
+		if (niquery_is_enabled(&rts->ni)) {
+			fprintf(stderr, "%s:%d %s(): niquery_is_enabled => IPUTILS_NI_ICMP6_REPLY\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			ICMP6_FILTER_SETPASS(IPUTILS_NI_ICMP6_REPLY, &filter);
-		else
+		} else {
+			fprintf(stderr, "%s:%d %s(): ICMP6_ECHO_REPLY\n", __FILE__, __LINE__, __func__); // FIXME: debug
 			ICMP6_FILTER_SETPASS(ICMP6_ECHO_REPLY, &filter);
+		}
 
 		err = setsockopt(sock->fd, IPPROTO_ICMPV6, ICMP6_FILTER, &filter, sizeof filter);
 
@@ -353,6 +379,13 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 	}
 
 	const int on = 1;
+
+#ifdef IPV6_RECVHOPLIMIT
+		fprintf(stderr, "%s:%d %s(): #ifdef IPV6_RECVHOPLIMIT\n", __FILE__, __LINE__, __func__); // FIXME: debug
+#else
+		fprintf(stderr, "%s:%d %s(): ELSE #ifdef IPV6_RECVHOPLIMIT\n", __FILE__, __LINE__, __func__); // FIXME: debug
+#endif
+
 	if (
 #ifdef IPV6_RECVHOPLIMIT
 	    setsockopt(sock->fd, IPPROTO_IPV6, IPV6_RECVHOPLIMIT, &on, sizeof on) == -1 &&
@@ -365,9 +398,11 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 
 	if (rts->opt_tclass) {
 #ifdef IPV6_TCLASS
+		fprintf(stderr, "%s:%d %s(): #ifdef IPV6_TCLASS\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		if (setsockopt(sock->fd, IPPROTO_IPV6, IPV6_TCLASS, &rts->tclass, sizeof rts->tclass) == -1)
 			error(2, errno, _("setsockopt(IPV6_TCLASS)"));
 #else
+		fprintf(stderr, "%s:%d %s(): ELSE #ifdef IPV6_TCLASS\n", __FILE__, __LINE__, __func__); // FIXME: debug
 		error(0, 0, _("traffic class is not supported"));
 #endif
 	}
