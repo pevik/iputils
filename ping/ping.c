@@ -140,8 +140,14 @@ static void create_socket(struct ping_rts *rts, socket_st *sock, int family,
 		do_fallback = 1;
 
 	/* User is not allowed to use ping sockets. */
-	if (sock->fd == -1 && errno == EACCES)
+	if (sock->fd == -1 && errno == EACCES) {
+		if (requisite || rts->opt_verbose)
+			fprintf(stderr, _("cannot use ICMP datagram socket, allow it for users with:\n"
+					"sudo sysctl -w net.ipv4.ping_group_range=\"100 4294967295\"\n\n"
+					"For more info see\n"
+					"https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html?highlight=ping_group_range\n\n"));
 		do_fallback = 1;
+	}
 
 	if (socktype == SOCK_RAW || do_fallback) {
 		socktype = SOCK_RAW;
@@ -149,8 +155,14 @@ static void create_socket(struct ping_rts *rts, socket_st *sock, int family,
 	}
 
 	if (sock->fd == -1) {
+		if (rts->opt_verbose)
+			fprintf(stderr, "using %s, fallback to raw socket: %s\n",
+					socktype == SOCK_DGRAM ? "ICMP datagram socket" : "raw socket",
+					do_fallback ? "yes" : "no");
+
 		if (requisite || rts->opt_verbose)
 			error(0, errno, "socket");
+
 		if (requisite)
 			exit(2);
 	} else
