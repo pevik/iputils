@@ -35,12 +35,25 @@ void error(int status, int errnum, const char *format, ...)
 
 int close_stream(FILE *stream)
 {
+	fprintf(stderr, "before: errno: %d\n", errno);
+
 	const int flush_status = fflush(stream);
+	fprintf(stderr, "flush_status: %d, errno: %d\n", flush_status, errno);
+
 #ifdef HAVE___FPENDING
 	const int some_pending = (__fpending(stream) != 0);
+	fprintf(stderr, "some_pending: %d, errno: %d\n", some_pending, errno);
 #endif
 	const int prev_fail = (ferror(stream) != 0);
+	fprintf(stderr, "prev_fail: %d, errno: %d\n", prev_fail, errno);
 	const int fclose_fail = (fclose(stream) != 0);
+	fprintf(stderr, "fclose_fail: %d, errno: %d\n", fclose_fail, errno);
+
+#ifdef HAVE___FPENDING
+	fprintf(stderr, "have HAVE___FPENDING\n");
+#else
+	fprintf(stderr, "do *not* have HAVE___FPENDING\n");
+#endif
 
 	if (flush_status ||
 	    prev_fail || (fclose_fail && (
