@@ -250,6 +250,30 @@ static int parsetos(char *str)
 	return (tos);
 }
 
+/* Set Identifier */
+static int parse_ident(char* str)
+{
+	const char *cp;
+	unsigned long val;
+	char *ep;
+
+	/* handle both hex and decimal values */
+	if (str[0] == '0' && (str[1] == 'x' || str[1] == 'X')) {
+		cp = str + 2;
+		val = (int)strtoul(cp, &ep, 16);
+	} else
+		val = (int)strtoul(str, &ep, 10);
+
+	/* doesn't look like decimal or hex, eh? */
+	if (*ep != '\0')
+		error(2, 0, _("bad value for identifier: %s"), str);
+
+	if (val >= IDENTIFIER_MAX)
+		error(2, 0, _("the decimal value of identifier must be in range 0-%d: %lu"), IDENTIFIER_MAX, val);
+
+	return htons(val);
+}
+
 int
 main(int argc, char **argv)
 {
@@ -274,6 +298,7 @@ main(int argc, char **argv)
 		.tmin = LONG_MAX,
 		.pipesize = -1,
 		.datalen = DEFDATALEN,
+		.ident = -1,
 		.screen_width = INT_MAX,
 #ifdef HAVE_LIBCAP
 		.cap_raw = CAP_NET_RAW,
@@ -310,7 +335,7 @@ main(int argc, char **argv)
 		hints.ai_family = AF_INET6;
 
 	/* Parse command line options */
-	while ((ch = getopt(argc, argv, "h?" "4bRT:" "6F:N:" "aABc:dDfi:I:l:Lm:M:nOp:qQ:rs:S:t:UvVw:W:")) != EOF) {
+	while ((ch = getopt(argc, argv, "h?" "4be:RT:" "6F:N:" "aABc:dDfi:I:l:Lm:M:nOp:qQ:rs:S:t:UvVw:W:")) != EOF) {
 		switch(ch) {
 		/* IPv4 specific options */
 		case '4':
@@ -320,6 +345,13 @@ main(int argc, char **argv)
 			break;
 		case 'b':
 			rts.broadcast_pings = 1;
+			break;
+		case 'e':
+			rts.ident = parse_ident(optarg);
+			if (rts.ident == 0) {
+				/* Right now linux doesn't support setting ident == 0 in SOCK_DGRAM mode */
+				hints.ai_socktype = SOCK_RAW;
+			}
 			break;
 		case 'R':
 			if (rts.opt_timestamp)
@@ -804,9 +836,14 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			error(2, errno, "IP_MTU_DISCOVER");
 	}
 
-	if (rts->opt_strictsource &&
-	    bind(sock->fd, (struct sockaddr *)&rts->source, sizeof rts->source) == -1)
-		error(2, errno, "bind");
+	int set_ident = rts->ident > 0 && sock->socktype == SOCK_DGRAM;
+	if (set_ident)
+		rts->source.sin_port = rts->ident;
+
+	if (rts->opt_strictsource || set_ident) {
+		if (bind(sock->fd, (struct sockaddr *)&rts->source, sizeof rts->source) == -1)
+			error(2, errno, "bind");
+	}
 
 	if (sock->socktype == SOCK_RAW) {
 		struct icmp_filter filt;
