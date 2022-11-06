@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-17 22:24+0200\n"
+"POT-Creation-Date: 2022-11-06 20:56+0100\n"
 "PO-Revision-Date: 2021-07-16 13:31+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
@@ -146,9 +146,9 @@ msgstr "Interface \"%s\" não está ARPável\n"
 msgid "WARNING: using default broadcast address.\n"
 msgstr "AVISO: usando endereço padrão de broadcast.\n"
 
-#: arping.c:902 arping.c:905 arping.c:908 ping/ping.c:371 ping/ping.c:417
-#: ping/ping.c:425 ping/ping.c:468 ping/ping.c:471 ping/ping.c:474
-#: ping/ping.c:487 tracepath.c:474 tracepath.c:477 tracepath.c:480
+#: arping.c:902 arping.c:905 arping.c:908 ping/ping.c:372 ping/ping.c:418
+#: ping/ping.c:426 ping/ping.c:469 ping/ping.c:472 ping/ping.c:475
+#: ping/ping.c:488 tracepath.c:474 tracepath.c:477 tracepath.c:480
 #: tracepath.c:501
 msgid "invalid argument"
 msgstr "argumento inválido"
@@ -291,7 +291,7 @@ msgid "too long scope name"
 msgstr "nome de escopo longo demais"
 
 #: ping/node_info.c:346 ping/node_info.c:388 ping/ping6_common.c:296
-#: ping/ping.c:455 ping/ping.c:518 ping/ping.c:915
+#: ping/ping.c:456 ping/ping.c:519 ping/ping.c:917
 msgid "memory allocation failed"
 msgstr "alocação de memória falhou"
 
@@ -345,7 +345,7 @@ msgstr ""
 "  subject-name=name\n"
 "  subject-fqdn=name\n"
 
-#: ping/ping6_common.c:99 ping/ping.c:617
+#: ping/ping6_common.c:99 ping/ping.c:618
 #, c-format
 msgid "unknown iface: %s"
 msgstr "interface desconhecida: %s"
@@ -354,7 +354,7 @@ msgstr "interface desconhecida: %s"
 msgid "scope discrepancy among the nodes"
 msgstr "discrepância de escopo entre os nós"
 
-#: ping/ping6_common.c:222 ping/ping.c:782
+#: ping/ping6_common.c:222 ping/ping.c:784
 #, c-format
 msgid "Warning: source address might be selected on device other than: %s"
 msgstr ""
@@ -415,7 +415,7 @@ msgstr "PING %s(%s) "
 msgid ", flow 0x%05x, "
 msgstr ", fluxo 0x%05x, "
 
-#: ping/ping6_common.c:401 ping/ping.c:919
+#: ping/ping6_common.c:401 ping/ping.c:921
 #, c-format
 msgid "from %s %s: "
 msgstr "de %s %s: "
@@ -559,12 +559,12 @@ msgstr "erro local"
 msgid "local error: message too long, mtu: %u"
 msgstr "erro local: mensagem longa demais, mtu: %u"
 
-#: ping/ping6_common.c:561 ping/ping.c:1366
+#: ping/ping6_common.c:561 ping/ping.c:1371
 #, c-format
 msgid "From %s icmp_seq=%u "
 msgstr "De %s icmp_seq=%u "
 
-#: ping/ping6_common.c:668 ping/ping.c:1480
+#: ping/ping6_common.c:668 ping/ping.c:1485
 #, c-format
 msgid " icmp_seq=%u"
 msgstr " icmp_seq=%u"
@@ -619,30 +619,30 @@ msgstr "; seq=%u;"
 msgid "packet too short: %d bytes"
 msgstr "pacote curto demais: %d bytes"
 
-#: ping/ping6_common.c:914 ping/ping.c:1609
+#: ping/ping6_common.c:914 ping/ping.c:1614
 #, c-format
 msgid "From %s: "
 msgstr "De %s: "
 
-#: ping/ping6_common.c:955 ping/ping.c:1694
+#: ping/ping6_common.c:955 ping/ping.c:1699
 msgid "WARNING: failed to install socket filter"
 msgstr "AVISO: falha ao instalar filtro de socket"
 
-#: ping/ping.c:193
+#: ping/ping.c:189
 #, c-format
 msgid "option argument contains garbage: %s"
 msgstr "o argumento de opção contém lixo: %s"
 
-#: ping/ping.c:194
+#: ping/ping.c:190
 msgid "this will become fatal error in the future"
 msgstr "este se tornará um erro fatal no futuro"
 
-#: ping/ping.c:226
+#: ping/ping.c:224
 #, c-format
 msgid "bad value for flowinfo: %s"
 msgstr "valor inválido para flowinfo: %s"
 
-#: ping/ping.c:229
+#: ping/ping.c:227
 #, c-format
 msgid "flow value is greater than 20 bits: %s"
 msgstr "valor de fluxo é maior que 20 bits: %s"
@@ -657,74 +657,74 @@ msgstr "valor de TOS inválido: %s"
 msgid "the decimal value of TOS bits must be in range 0-255: %d"
 msgstr "o valor em decimal de bits TOS deve estar no intervalo 0-255: %d"
 
-#: ping/ping.c:321 ping/ping.c:348
+#: ping/ping.c:322 ping/ping.c:349
 msgid "only one -4 or -6 option may be specified"
 msgstr "apenas uma opção entre -4 ou -6 pode ser especificada"
 
-#: ping/ping.c:329 ping/ping.c:334
+#: ping/ping.c:330 ping/ping.c:335
 msgid "only one of -T or -R may be used"
 msgstr "apenas um entre -T ou -R pode ser usado"
 
-#: ping/ping.c:343
+#: ping/ping.c:344
 #, c-format
 msgid "invalid timestamp type: %s"
 msgstr "tipo de marca de tempo inválido: %s"
 
-#: ping/ping.c:383
+#: ping/ping.c:384
 msgid "bad timing interval"
 msgstr "intervalo de tempo inválido"
 
-#: ping/ping.c:385
+#: ping/ping.c:386
 #, c-format
 msgid "bad timing interval: %s"
 msgstr "intervalo de tempo inválido: %s"
 
-#: ping/ping.c:396
+#: ping/ping.c:397
 #, c-format
 msgid "cannot copy: %s"
 msgstr "não foi possível copiar: %s"
 
-#: ping/ping.c:405
+#: ping/ping.c:406
 #, c-format
 msgid "invalid source address: %s"
 msgstr "endereço de origem inválido: %s"
 
-#: ping/ping.c:419
+#: ping/ping.c:420
 #, c-format
 msgid "cannot set preload to value greater than 3: %d"
 msgstr "não foi possível pré-carregar para um valor maior que 3: %d"
 
-#: ping/ping.c:436
+#: ping/ping.c:437
 #, c-format
 msgid "invalid -M argument: %s"
 msgstr "argumento -M inválido: %s"
 
-#: ping/ping.c:493
+#: ping/ping.c:494
 msgid "bad linger time"
 msgstr ""
 
-#: ping/ping.c:495
+#: ping/ping.c:496
 #, c-format
 msgid "bad linger time: %s"
 msgstr ""
 
-#: ping/ping.c:566
+#: ping/ping.c:567
 #, c-format
 msgid ""
 "Warning: IPv6 link-local address on ICMP datagram socket may require ifname "
 "or scope-id => use: address%%<ifname|scope-id>"
 msgstr ""
 
-#: ping/ping.c:593
+#: ping/ping.c:594
 #, c-format
 msgid "unknown protocol family: %d"
 msgstr "família de protocolo desconhecida: %d"
 
-#: ping/ping.c:728
+#: ping/ping.c:729
 msgid "warning: QOS sockopts"
 msgstr "aviso: sockopts de QOS"
 
-#: ping/ping.c:740
+#: ping/ping.c:741
 msgid ""
 "Do you want to ping broadcast? Then -b. If not, check your local firewall "
 "rules"
@@ -732,67 +732,67 @@ msgstr ""
 "Deseja enviar ping em broadcast? Então, -b. Caso contrário, verifique suas "
 "regras de firewall local"
 
-#: ping/ping.c:741
+#: ping/ping.c:742
 #, c-format
 msgid "WARNING: pinging broadcast address\n"
 msgstr "AVISO: pingando endereço de broadcast\n"
 
-#: ping/ping.c:744 ping/ping.c:895
+#: ping/ping.c:745 ping/ping.c:897
 msgid "cannot set broadcasting"
 msgstr "não foi possível definir uso de broadcast"
 
-#: ping/ping.c:764
+#: ping/ping.c:766
 msgid "gatifaddrs failed"
 msgstr "gatifaddrs falhou"
 
-#: ping/ping.c:797
+#: ping/ping.c:799
 #, c-format
 msgid "broadcast ping with too short interval: %d"
 msgstr "ping de broadcast com intervalo muito curto: %d"
 
-#: ping/ping.c:799
+#: ping/ping.c:801
 msgid "broadcast ping does not fragment"
 msgstr "o ping de broadcast não fragmenta"
 
-#: ping/ping.c:823
+#: ping/ping.c:825
 msgid "WARNING: setsockopt(ICMP_FILTER)"
 msgstr "AVISO: setsockopt(ICMP_FILTER)"
 
-#: ping/ping.c:828
+#: ping/ping.c:830
 msgid "WARNING: your kernel is veeery old. No problems."
 msgstr "AVISO: seu kernel é beeem antigo. Sem problemas."
 
-#: ping/ping.c:832
+#: ping/ping.c:834
 msgid "WARNING: setsockopt(IP_RECVTTL)"
 msgstr "AVISO: setsockopt(IP_RECVTTL)"
 
-#: ping/ping.c:834
+#: ping/ping.c:836
 msgid "WARNING: setsockopt(IP_RETOPTS)"
 msgstr "AVISO: setsockopt(IP_RETOPTS)"
 
-#: ping/ping.c:901
+#: ping/ping.c:903
 msgid "cannot disable multicast loopback"
 msgstr "não foi possível desabilitar loopback em multicast"
 
-#: ping/ping.c:906
+#: ping/ping.c:908
 msgid "cannot set multicast time-to-live"
 msgstr "não foi possível definir tempo de vida multicast"
 
-#: ping/ping.c:908
+#: ping/ping.c:910
 msgid "cannot set unicast time-to-live"
 msgstr "não foi possível definir tempo de vida unicast"
 
-#: ping/ping.c:917
+#: ping/ping.c:919
 #, c-format
 msgid "PING %s (%s) "
 msgstr "PING %s (%s) "
 
-#: ping/ping.c:920
+#: ping/ping.c:922
 #, c-format
 msgid "%zu(%zu) bytes of data.\n"
 msgstr "%zu(%zu) bytes de dados.\n"
 
-#: ping/ping.c:946
+#: ping/ping.c:951
 #, c-format
 msgid ""
 "\n"
@@ -801,7 +801,7 @@ msgstr ""
 "\n"
 "NOP"
 
-#: ping/ping.c:957
+#: ping/ping.c:962
 #, c-format
 msgid ""
 "\n"
@@ -810,12 +810,12 @@ msgstr ""
 "\n"
 "%cSRR: "
 
-#: ping/ping.c:995
+#: ping/ping.c:1000
 #, c-format
 msgid "\t(same route)"
 msgstr "\t(mesma rota)"
 
-#: ping/ping.c:1000
+#: ping/ping.c:1005
 #, c-format
 msgid ""
 "\n"
@@ -824,7 +824,7 @@ msgstr ""
 "\n"
 "RR: "
 
-#: ping/ping.c:1036
+#: ping/ping.c:1041
 #, c-format
 msgid ""
 "\n"
@@ -833,27 +833,27 @@ msgstr ""
 "\n"
 "TS: "
 
-#: ping/ping.c:1068
+#: ping/ping.c:1073
 #, c-format
 msgid "\t%ld absolute not-standard"
 msgstr "\t%ld absoluta não padrão"
 
-#: ping/ping.c:1070
+#: ping/ping.c:1075
 #, c-format
 msgid "\t%ld not-standard"
 msgstr "\t%ld não padrão"
 
-#: ping/ping.c:1074
+#: ping/ping.c:1079
 #, c-format
 msgid "\t%ld absolute"
 msgstr "\t%ld absoluta"
 
-#: ping/ping.c:1085
+#: ping/ping.c:1090
 #, c-format
 msgid "Unrecorded hops: %d\n"
 msgstr "Saltos não registrados: %d\n"
 
-#: ping/ping.c:1089
+#: ping/ping.c:1094
 #, c-format
 msgid ""
 "\n"
@@ -862,237 +862,237 @@ msgstr ""
 "\n"
 "opção desconhecida %x"
 
-#: ping/ping.c:1109
+#: ping/ping.c:1114
 #, c-format
 msgid "Vr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      Dst Data\n"
 msgstr ""
 
-#: ping/ping.c:1110
+#: ping/ping.c:1115
 #, c-format
 msgid " %1x  %1x  %02x %04x %04x"
 msgstr " %1x  %1x  %02x %04x %04x"
 
-#: ping/ping.c:1112
+#: ping/ping.c:1117
 #, c-format
 msgid "   %1x %04x"
 msgstr "   %1x %04x"
 
-#: ping/ping.c:1114
+#: ping/ping.c:1119
 #, c-format
 msgid "  %02x  %02x %04x"
 msgstr "  %02x  %02x %04x"
 
-#: ping/ping.c:1130
+#: ping/ping.c:1135
 #, c-format
 msgid "Echo Reply\n"
 msgstr "Resposta de eco\n"
 
-#: ping/ping.c:1136
+#: ping/ping.c:1141
 #, c-format
 msgid "Destination Net Unreachable\n"
 msgstr "Rede de destino inalcançável\n"
 
-#: ping/ping.c:1139
+#: ping/ping.c:1144
 #, c-format
 msgid "Destination Host Unreachable\n"
 msgstr "Host de destino inalcançável\n"
 
-#: ping/ping.c:1142
+#: ping/ping.c:1147
 #, c-format
 msgid "Destination Protocol Unreachable\n"
 msgstr "Protocolo de destino inalcançável\n"
 
-#: ping/ping.c:1145
+#: ping/ping.c:1150
 #, c-format
 msgid "Destination Port Unreachable\n"
 msgstr "Porta de destino inalcançável\n"
 
-#: ping/ping.c:1148
+#: ping/ping.c:1153
 #, c-format
 msgid "Frag needed and DF set (mtu = %u)\n"
 msgstr "Frag necessária e DF definida (mtu = %u)\n"
 
-#: ping/ping.c:1151
+#: ping/ping.c:1156
 #, c-format
 msgid "Source Route Failed\n"
 msgstr ""
 
-#: ping/ping.c:1154
+#: ping/ping.c:1159
 #, c-format
 msgid "Destination Net Unknown\n"
 msgstr "Rede de destino desconhecida\n"
 
-#: ping/ping.c:1157
+#: ping/ping.c:1162
 #, c-format
 msgid "Destination Host Unknown\n"
 msgstr "Host de destino desconhecido\n"
 
-#: ping/ping.c:1160
+#: ping/ping.c:1165
 #, c-format
 msgid "Source Host Isolated\n"
 msgstr "Host de origem isolado\n"
 
-#: ping/ping.c:1163
+#: ping/ping.c:1168
 #, c-format
 msgid "Destination Net Prohibited\n"
 msgstr "Rede de destino proibida\n"
 
-#: ping/ping.c:1166
+#: ping/ping.c:1171
 #, c-format
 msgid "Destination Host Prohibited\n"
 msgstr "Host de destino proibido\n"
 
-#: ping/ping.c:1169
+#: ping/ping.c:1174
 #, c-format
 msgid "Destination Net Unreachable for Type of Service\n"
 msgstr "Rede de destino inalcançável para o tipo de serviço\n"
 
-#: ping/ping.c:1172
+#: ping/ping.c:1177
 #, c-format
 msgid "Destination Host Unreachable for Type of Service\n"
 msgstr "Host de destino inalcançável para o tipo de serviço\n"
 
-#: ping/ping.c:1175
+#: ping/ping.c:1180
 #, c-format
 msgid "Packet filtered\n"
 msgstr "Pacote filtrado\n"
 
-#: ping/ping.c:1178
+#: ping/ping.c:1183
 #, c-format
 msgid "Precedence Violation\n"
 msgstr "Violação de precedência\n"
 
-#: ping/ping.c:1181
+#: ping/ping.c:1186
 #, c-format
 msgid "Precedence Cutoff\n"
 msgstr "Corte de precedência\n"
 
-#: ping/ping.c:1184
+#: ping/ping.c:1189
 #, c-format
 msgid "Dest Unreachable, Bad Code: %d\n"
 msgstr "Destino inalcançável, código inválido: %d\n"
 
-#: ping/ping.c:1191
+#: ping/ping.c:1196
 #, c-format
 msgid "Source Quench\n"
 msgstr ""
 
-#: ping/ping.c:1198
+#: ping/ping.c:1203
 #, c-format
 msgid "Redirect Network"
 msgstr ""
 
-#: ping/ping.c:1201
+#: ping/ping.c:1206
 #, c-format
 msgid "Redirect Host"
 msgstr ""
 
-#: ping/ping.c:1204
+#: ping/ping.c:1209
 #, c-format
 msgid "Redirect Type of Service and Network"
 msgstr ""
 
-#: ping/ping.c:1207
+#: ping/ping.c:1212
 #, c-format
 msgid "Redirect Type of Service and Host"
 msgstr ""
 
-#: ping/ping.c:1210
+#: ping/ping.c:1215
 #, c-format
 msgid "Redirect, Bad Code: %d"
 msgstr ""
 
-#: ping/ping.c:1221
+#: ping/ping.c:1226
 #, c-format
 msgid "(New nexthop: %s)\n"
 msgstr "(Novo próximo salto: %s)\n"
 
-#: ping/ping.c:1227
+#: ping/ping.c:1232
 #, c-format
 msgid "Echo Request\n"
 msgstr "Requisição de eco\n"
 
-#: ping/ping.c:1233
+#: ping/ping.c:1238
 #, c-format
 msgid "Time to live exceeded\n"
 msgstr "Tempo de vida excedido\n"
 
-#: ping/ping.c:1236
+#: ping/ping.c:1241
 #, c-format
 msgid "Frag reassembly time exceeded\n"
 msgstr "Tempo de remontagem de frag excedido\n"
 
-#: ping/ping.c:1239
+#: ping/ping.c:1244
 #, c-format
 msgid "Time exceeded, Bad Code: %d\n"
 msgstr "Tempo excedido, código inválido: %d\n"
 
-#: ping/ping.c:1246
+#: ping/ping.c:1251
 #, c-format
 msgid "Parameter problem: pointer = %u\n"
 msgstr "Problema de parâmetro: ponteiro = %u\n"
 
-#: ping/ping.c:1252
+#: ping/ping.c:1257
 #, c-format
 msgid "Timestamp\n"
 msgstr "Marca de tempo\n"
 
-#: ping/ping.c:1256
+#: ping/ping.c:1261
 #, c-format
 msgid "Timestamp Reply\n"
 msgstr "Resposta de marca de tempo\n"
 
-#: ping/ping.c:1260
+#: ping/ping.c:1265
 #, c-format
 msgid "Information Request\n"
 msgstr "Requisição de informação\n"
 
-#: ping/ping.c:1264
+#: ping/ping.c:1269
 #, c-format
 msgid "Information Reply\n"
 msgstr "Resposta de informação\n"
 
-#: ping/ping.c:1269
+#: ping/ping.c:1274
 #, c-format
 msgid "Address Mask Request\n"
 msgstr "Requisição da máscara de endereço\n"
 
-#: ping/ping.c:1274
+#: ping/ping.c:1279
 #, c-format
 msgid "Address Mask Reply\n"
 msgstr "Resposta da máscara de endereço\n"
 
-#: ping/ping.c:1278
+#: ping/ping.c:1283
 #, c-format
 msgid "Bad ICMP type: %d\n"
 msgstr "Tipo inválido de ICMP: %d\n"
 
-#: ping/ping.c:1330
+#: ping/ping.c:1335
 #, c-format
 msgid "local error: %s"
 msgstr "erro local: %s"
 
-#: ping/ping.c:1332
+#: ping/ping.c:1337
 #, c-format
 msgid "local error: message too long, mtu=%u"
 msgstr "erro local: mensagem longa demais, mtu=%u"
 
-#: ping/ping.c:1505
+#: ping/ping.c:1510
 #, c-format
 msgid "packet too short (%d bytes) from %s"
 msgstr "pacote curto demais (%d bytes) de %s"
 
-#: ping/ping.c:1584
+#: ping/ping.c:1589
 #, c-format
 msgid "From %s: icmp_seq=%u "
 msgstr "De %s: icmp_seq=%u "
 
-#: ping/ping.c:1587
+#: ping/ping.c:1592
 #, c-format
 msgid "(BAD CHECKSUM)"
 msgstr "(SOMA DE VERIFICAÇÃO INVÁLIDA)"
 
-#: ping/ping.c:1611
+#: ping/ping.c:1616
 #, c-format
 msgid "(BAD CHECKSUM)\n"
 msgstr "(SOMA DE VERIFICAÇÃO INVÁLIDA)\n"
