@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-06 20:56+0100\n"
+"POT-Creation-Date: 2022-11-06 20:58+0100\n"
 "PO-Revision-Date: 2021-07-13 21:28+0000\n"
 "Last-Translator: Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/iputils/"
@@ -73,120 +73,135 @@ msgstr ""
 
 #: arping.c:305
 #, c-format
-msgid "Sent %d probes (%d broadcast(s))\n"
-msgstr ""
+msgid "Sent %d probe"
+msgid_plural "Sent %d probes"
+msgstr[0] ""
+msgstr[1] ""
 
-#: arping.c:306
-#, c-format
-msgid "Received %d response(s)"
-msgstr "%d réponse(s) reçue(s)"
-
-#: arping.c:310
-#, c-format
-msgid "%d request(s)"
-msgstr "%d requête(s)"
+#: arping.c:309
+#, fuzzy, c-format
+msgid "(%d broadcast)\n"
+msgid_plural "(%d broadcasts)\n"
+msgstr[0] "%s%d diffusion(s)"
+msgstr[1] "%s%d diffusion(s)"
 
 #: arping.c:312
-#, c-format
-msgid "%s%d broadcast(s)"
-msgstr "%s%d diffusion(s)"
+#, fuzzy, c-format
+msgid "Received %d response"
+msgid_plural "Received %d responses"
+msgstr[0] "%d réponse(s) reçue(s)"
+msgstr[1] "%d réponse(s) reçue(s)"
 
-#: arping.c:415
+#: arping.c:318
+#, fuzzy, c-format
+msgid "%d request"
+msgid_plural "%d requests"
+msgstr[0] "%d requête(s)"
+msgstr[1] "%d requête(s)"
+
+#: arping.c:323
+#, fuzzy, c-format
+msgid "%d broadcast"
+msgid_plural "%d broadcasts"
+msgstr[0] "%s%d diffusion(s)"
+msgstr[1] "%s%d diffusion(s)"
+
+#: arping.c:427
 msgid "Unicast"
 msgstr "Monodiffusion"
 
-#: arping.c:415
+#: arping.c:427
 msgid "Broadcast"
 msgstr "Diffusion"
 
-#: arping.c:416
+#: arping.c:428
 #, c-format
 msgid "%s from "
 msgstr "%s de "
 
-#: arping.c:416
+#: arping.c:428
 msgid "reply"
 msgstr "réponse"
 
-#: arping.c:416
+#: arping.c:428
 msgid "request"
 msgstr "requête"
 
-#: arping.c:421
+#: arping.c:433
 #, c-format
 msgid "for %s "
 msgstr "pour %s "
 
-#: arping.c:426
+#: arping.c:438
 #, c-format
 msgid "for "
 msgstr "pour "
 
-#: arping.c:436
+#: arping.c:448
 #, c-format
 msgid " %ld.%03ldms\n"
 msgstr " %ld.%03ld ms\n"
 
-#: arping.c:438
+#: arping.c:450
 #, c-format
 msgid " UNSOLICITED?\n"
 msgstr " NON SOLLICITÉ ?\n"
 
-#: arping.c:589
+#: arping.c:601
 #, c-format
 msgid "Interface \"%s\" is down\n"
 msgstr "L’interface « %s » est inactive\n"
 
-#: arping.c:597
+#: arping.c:609
 #, c-format
 msgid "Interface \"%s\" is not ARPable\n"
 msgstr "L’interface « %s » n’est pas ARPable\n"
 
-#: arping.c:690
+#: arping.c:702
 #, c-format
 msgid "WARNING: using default broadcast address.\n"
 msgstr "AVERTISSEMENT : utilisation de l’adresse de diffusion par défaut.\n"
 
-#: arping.c:902 arping.c:905 arping.c:908 ping/ping.c:372 ping/ping.c:418
+#: arping.c:914 arping.c:917 arping.c:920 ping/ping.c:372 ping/ping.c:418
 #: ping/ping.c:426 ping/ping.c:469 ping/ping.c:472 ping/ping.c:475
 #: ping/ping.c:488 tracepath.c:474 tracepath.c:477 tracepath.c:480
 #: tracepath.c:501
 msgid "invalid argument"
 msgstr "paramètre invalide"
 
-#: arping.c:974
+#: arping.c:986
 #, c-format
 msgid "Device %s not available."
 msgstr "Périphérique %s non disponible."
 
-#: arping.c:975
+#: arping.c:987
 msgid "Suitable device could not be determined. Please, use option -I."
 msgstr ""
 
-#: arping.c:995
+#: arping.c:1007
 msgid "WARNING: interface is ignored"
 msgstr "AVERTISSEMENT : l’interface est ignorée"
 
-#: arping.c:1014
+#: arping.c:1026
 msgid "WARNING: setsockopt(SO_DONTROUTE)"
 msgstr "AVERTISSEMENT : setsockopt(SO_DONTROUTE)"
 
-#: arping.c:1038
+#: arping.c:1050
 #, c-format
 msgid "Interface \"%s\" is not ARPable (no ll address)\n"
 msgstr "L’interface « %s » n’est pas ARPable (pas d’adresse ll)\n"
 
-#: arping.c:1047
+#: arping.c:1059
 #, c-format
 msgid "ARPING %s "
 msgstr "ARPING %s "
 
-#: arping.c:1048
+#: arping.c:1060
 #, c-format
 msgid "from %s %s\n"
 msgstr ""
 
-#: arping.c:1052
+#: arping.c:1064
 msgid "no source address in not-DAD mode"
 msgstr ""
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-06 20:56+0100\n"
+"POT-Creation-Date: 2022-11-06 20:58+0100\n"
 "PO-Revision-Date: 2022-09-15 04:19+0000\n"
 "Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
@@ -72,120 +72,130 @@ msgstr ""
 
 #: arping.c:305
 #, c-format
-msgid "Sent %d probes (%d broadcast(s))\n"
-msgstr "发送 %d 次探测 (%d 次广播)\n"
+msgid "Sent %d probe"
+msgid_plural "Sent %d probes"
+msgstr[0] ""
 
-#: arping.c:306
-#, c-format
-msgid "Received %d response(s)"
-msgstr "已接受到 %d 个响应"
-
-#: arping.c:310
-#, c-format
-msgid "%d request(s)"
-msgstr "%d 请求"
+#: arping.c:309
+#, fuzzy, c-format
+msgid "(%d broadcast)\n"
+msgid_plural "(%d broadcasts)\n"
+msgstr[0] "%s%d 广播"
 
 #: arping.c:312
-#, c-format
-msgid "%s%d broadcast(s)"
-msgstr "%s%d 广播"
+#, fuzzy, c-format
+msgid "Received %d response"
+msgid_plural "Received %d responses"
+msgstr[0] "已接受到 %d 个响应"
 
-#: arping.c:415
+#: arping.c:318
+#, fuzzy, c-format
+msgid "%d request"
+msgid_plural "%d requests"
+msgstr[0] "%d 请求"
+
+#: arping.c:323
+#, fuzzy, c-format
+msgid "%d broadcast"
+msgid_plural "%d broadcasts"
+msgstr[0] "%s%d 广播"
+
+#: arping.c:427
 msgid "Unicast"
 msgstr "单播"
 
-#: arping.c:415
+#: arping.c:427
 msgid "Broadcast"
 msgstr "广播"
 
-#: arping.c:416
+#: arping.c:428
 #, c-format
 msgid "%s from "
 msgstr "%s 来自 "
 
-#: arping.c:416
+#: arping.c:428
 msgid "reply"
 msgstr "回复"
 
-#: arping.c:416
+#: arping.c:428
 msgid "request"
 msgstr "请求"
 
-#: arping.c:421
+#: arping.c:433
 #, c-format
 msgid "for %s "
 msgstr "对于 %s "
 
-#: arping.c:426
+#: arping.c:438
 #, c-format
 msgid "for "
 msgstr "对于 "
 
-#: arping.c:436
+#: arping.c:448
 #, c-format
 msgid " %ld.%03ldms\n"
 msgstr " %ld.%03ld毫秒\n"
 
-#: arping.c:438
+#: arping.c:450
 #, c-format
 msgid " UNSOLICITED?\n"
 msgstr " 不请自来？\n"
 
-#: arping.c:589
+#: arping.c:601
 #, c-format
 msgid "Interface \"%s\" is down\n"
 msgstr "网络接口 “%s” 已停止\n"
 
-#: arping.c:597
+#: arping.c:609
 #, c-format
 msgid "Interface \"%s\" is not ARPable\n"
 msgstr "网络接口 “%s” 不适用 ARP\n"
 
-#: arping.c:690
+#: arping.c:702
 #, c-format
 msgid "WARNING: using default broadcast address.\n"
 msgstr "警告：使用默认广播地址。\n"
 
-#: arping.c:902 arping.c:905 arping.c:908 ping/ping.c:372 ping/ping.c:418
+#: arping.c:914 arping.c:917 arping.c:920 ping/ping.c:372 ping/ping.c:418
 #: ping/ping.c:426 ping/ping.c:469 ping/ping.c:472 ping/ping.c:475
 #: ping/ping.c:488 tracepath.c:474 tracepath.c:477 tracepath.c:480
 #: tracepath.c:501
 msgid "invalid argument"
 msgstr "无效参数"
 
-#: arping.c:974
+#: arping.c:986
 #, c-format
 msgid "Device %s not available."
 msgstr "设备 %s 不可用."
 
-#: arping.c:975
+#: arping.c:987
 msgid "Suitable device could not be determined. Please, use option -I."
 msgstr "无法确定合适的设备。请使用选项 -I。"
 
-#: arping.c:995
+#: arping.c:1007
 msgid "WARNING: interface is ignored"
 msgstr "警告：接口被忽略"
 
-#: arping.c:1014
+#: arping.c:1026
 msgid "WARNING: setsockopt(SO_DONTROUTE)"
 msgstr "警告：setockopt(SO_DONTROUTE)"
 
-#: arping.c:1038
+#: arping.c:1050
 #, c-format
 msgid "Interface \"%s\" is not ARPable (no ll address)\n"
 msgstr "网络接口 “%s” 不适用 ARP（没有 ll 地址）\n"
 
-#: arping.c:1047
+#: arping.c:1059
 #, c-format
 msgid "ARPING %s "
 msgstr "ARPING %s "
 
-#: arping.c:1048
+#: arping.c:1060
 #, c-format
 msgid "from %s %s\n"
 msgstr "来自 %s %s\n"
 
-#: arping.c:1052
+#: arping.c:1064
 msgid "no source address in not-DAD mode"
 msgstr "非 DAD 模式下没有源地址"
 
@@ -1373,6 +1383,10 @@ msgstr ""
 #, c-format
 msgid "pktlen must be within: %d < value <= %d"
 msgstr ""
+
+#, c-format
+#~ msgid "Sent %d probes (%d broadcast(s))\n"
+#~ msgstr "发送 %d 次探测 (%d 次广播)\n"
 
 #, c-format
 #~ msgid ""

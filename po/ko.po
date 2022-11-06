@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-06 20:56+0100\n"
+"POT-Creation-Date: 2022-11-06 20:58+0100\n"
 "PO-Revision-Date: 2022-07-18 11:18+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/iputils/"
@@ -72,120 +72,130 @@ msgstr ""
 
 #: arping.c:305
 #, c-format
-msgid "Sent %d probes (%d broadcast(s))\n"
-msgstr "%d개의 시험을 보냈습니다 (%d개의 광역전송(s))\n"
+msgid "Sent %d probe"
+msgid_plural "Sent %d probes"
+msgstr[0] ""
 
-#: arping.c:306
-#, c-format
-msgid "Received %d response(s)"
-msgstr "%d개의 응답을 수신함"
-
-#: arping.c:310
-#, c-format
-msgid "%d request(s)"
-msgstr "%d개의 요청"
+#: arping.c:309
+#, fuzzy, c-format
+msgid "(%d broadcast)\n"
+msgid_plural "(%d broadcasts)\n"
+msgstr[0] "%s%d건 광역 전송"
 
 #: arping.c:312
-#, c-format
-msgid "%s%d broadcast(s)"
-msgstr "%s%d건 광역 전송"
+#, fuzzy, c-format
+msgid "Received %d response"
+msgid_plural "Received %d responses"
+msgstr[0] "%d개의 응답을 수신함"
 
-#: arping.c:415
+#: arping.c:318
+#, fuzzy, c-format
+msgid "%d request"
+msgid_plural "%d requests"
+msgstr[0] "%d개의 요청"
+
+#: arping.c:323
+#, fuzzy, c-format
+msgid "%d broadcast"
+msgid_plural "%d broadcasts"
+msgstr[0] "%s%d건 광역 전송"
+
+#: arping.c:427
 msgid "Unicast"
 msgstr "단일 전송"
 
-#: arping.c:415
+#: arping.c:427
 msgid "Broadcast"
 msgstr "광역 전송"
 
-#: arping.c:416
+#: arping.c:428
 #, c-format
 msgid "%s from "
 msgstr "~에서 %s "
 
-#: arping.c:416
+#: arping.c:428
 msgid "reply"
 msgstr "응답"
 
-#: arping.c:416
+#: arping.c:428
 msgid "request"
 msgstr "요청"
 
-#: arping.c:421
+#: arping.c:433
 #, c-format
 msgid "for %s "
 msgstr "%s를 위한 "
 
-#: arping.c:426
+#: arping.c:438
 #, c-format
 msgid "for "
 msgstr "~을 위한 "
 
-#: arping.c:436
+#: arping.c:448
 #, c-format
 msgid " %ld.%03ldms\n"
 msgstr " %ld.%03ldms\n"
 
-#: arping.c:438
+#: arping.c:450
 #, c-format
 msgid " UNSOLICITED?\n"
 msgstr " 탐탁치 않은?\n"
 
-#: arping.c:589
+#: arping.c:601
 #, c-format
 msgid "Interface \"%s\" is down\n"
 msgstr "연결장치 \"%s\"가 꺼졌습니다\n"
 
-#: arping.c:597
+#: arping.c:609
 #, c-format
 msgid "Interface \"%s\" is not ARPable\n"
 msgstr "연결장치 \"%s\"는 ARP를 할 수 없습니다\n"
 
-#: arping.c:690
+#: arping.c:702
 #, c-format
 msgid "WARNING: using default broadcast address.\n"
 msgstr "경고: 기본 광역 전송 주소를 사용합니다.\n"
 
-#: arping.c:902 arping.c:905 arping.c:908 ping/ping.c:372 ping/ping.c:418
+#: arping.c:914 arping.c:917 arping.c:920 ping/ping.c:372 ping/ping.c:418
 #: ping/ping.c:426 ping/ping.c:469 ping/ping.c:472 ping/ping.c:475
 #: ping/ping.c:488 tracepath.c:474 tracepath.c:477 tracepath.c:480
 #: tracepath.c:501
 msgid "invalid argument"
 msgstr "잘못된 인수"
 
-#: arping.c:974
+#: arping.c:986
 #, c-format
 msgid "Device %s not available."
 msgstr "장치 %s를 사용 할 수 없습니다."
 
-#: arping.c:975
+#: arping.c:987
 msgid "Suitable device could not be determined. Please, use option -I."
 msgstr "알맞은 장치를 결정 할 수 없습니다. 옵션 -l을 사용하세요."
 
-#: arping.c:995
+#: arping.c:1007
 msgid "WARNING: interface is ignored"
 msgstr "경고: 연결장치를 무시합니다"
 
-#: arping.c:1014
+#: arping.c:1026
 msgid "WARNING: setsockopt(SO_DONTROUTE)"
 msgstr "경고: setsockopt(SO_DONTROUTE)"
 
-#: arping.c:1038
+#: arping.c:1050
 #, c-format
 msgid "Interface \"%s\" is not ARPable (no ll address)\n"
 msgstr "연결장치 \"%s\"는 ARP를 사용 할 수 없습니다 (연결된 주소가 없습니다)\n"
 
-#: arping.c:1047
+#: arping.c:1059
 #, c-format
 msgid "ARPING %s "
 msgstr "ARPING %s "
 
-#: arping.c:1048
+#: arping.c:1060
 #, c-format
 msgid "from %s %s\n"
 msgstr "%s %s에서\n"
 
-#: arping.c:1052
+#: arping.c:1064
 msgid "no source address in not-DAD mode"
 msgstr "비-DAD 방식에서 원천 주소가 없습니다"
 
@@ -1400,6 +1410,10 @@ msgstr "%d 뒤로 "
 #, c-format
 msgid "pktlen must be within: %d < value <= %d"
 msgstr "pktlen은 다음 값 안에 있어야 합니다: %d < 값 <= %d"
+
+#, c-format
+#~ msgid "Sent %d probes (%d broadcast(s))\n"
+#~ msgstr "%d개의 시험을 보냈습니다 (%d개의 광역전송(s))\n"
 
 #~ msgid "unknown interface"
 #~ msgstr "알지 못하는 연결장치"

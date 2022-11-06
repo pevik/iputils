@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-06 20:56+0100\n"
+"POT-Creation-Date: 2022-11-06 20:58+0100\n"
 "PO-Revision-Date: 2021-07-16 13:31+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
@@ -72,121 +72,136 @@ msgstr ""
 
 #: arping.c:305
 #, c-format
-msgid "Sent %d probes (%d broadcast(s))\n"
-msgstr "Enviadas %d sondas (%d broadcast(s))\n"
+msgid "Sent %d probe"
+msgid_plural "Sent %d probes"
+msgstr[0] ""
+msgstr[1] ""
 
-#: arping.c:306
-#, c-format
-msgid "Received %d response(s)"
-msgstr "Recebida(s) %d resposta(s)"
-
-#: arping.c:310
-#, c-format
-msgid "%d request(s)"
-msgstr "%d requisição(ões)"
+#: arping.c:309
+#, fuzzy, c-format
+msgid "(%d broadcast)\n"
+msgid_plural "(%d broadcasts)\n"
+msgstr[0] "%s%d broadcast(s)"
+msgstr[1] "%s%d broadcast(s)"
 
 #: arping.c:312
-#, c-format
-msgid "%s%d broadcast(s)"
-msgstr "%s%d broadcast(s)"
+#, fuzzy, c-format
+msgid "Received %d response"
+msgid_plural "Received %d responses"
+msgstr[0] "Recebida(s) %d resposta(s)"
+msgstr[1] "Recebida(s) %d resposta(s)"
 
-#: arping.c:415
+#: arping.c:318
+#, fuzzy, c-format
+msgid "%d request"
+msgid_plural "%d requests"
+msgstr[0] "%d requisição(ões)"
+msgstr[1] "%d requisição(ões)"
+
+#: arping.c:323
+#, fuzzy, c-format
+msgid "%d broadcast"
+msgid_plural "%d broadcasts"
+msgstr[0] "%s%d broadcast(s)"
+msgstr[1] "%s%d broadcast(s)"
+
+#: arping.c:427
 msgid "Unicast"
 msgstr "Unicast"
 
-#: arping.c:415
+#: arping.c:427
 msgid "Broadcast"
 msgstr "Broadcast"
 
-#: arping.c:416
+#: arping.c:428
 #, c-format
 msgid "%s from "
 msgstr "%s de "
 
-#: arping.c:416
+#: arping.c:428
 msgid "reply"
 msgstr "resposta"
 
-#: arping.c:416
+#: arping.c:428
 msgid "request"
 msgstr "solicitação"
 
-#: arping.c:421
+#: arping.c:433
 #, c-format
 msgid "for %s "
 msgstr "pra %s "
 
-#: arping.c:426
+#: arping.c:438
 #, c-format
 msgid "for "
 msgstr "para "
 
-#: arping.c:436
+#: arping.c:448
 #, c-format
 msgid " %ld.%03ldms\n"
 msgstr " %ld.%03ldms\n"
 
-#: arping.c:438
+#: arping.c:450
 #, c-format
 msgid " UNSOLICITED?\n"
 msgstr " NÃO SOLICITADO?\n"
 
-#: arping.c:589
+#: arping.c:601
 #, c-format
 msgid "Interface \"%s\" is down\n"
 msgstr "Interface \"%s\" está inoperante\n"
 
-#: arping.c:597
+#: arping.c:609
 #, c-format
 msgid "Interface \"%s\" is not ARPable\n"
 msgstr "Interface \"%s\" não está ARPável\n"
 
-#: arping.c:690
+#: arping.c:702
 #, c-format
 msgid "WARNING: using default broadcast address.\n"
 msgstr "AVISO: usando endereço padrão de broadcast.\n"
 
-#: arping.c:902 arping.c:905 arping.c:908 ping/ping.c:372 ping/ping.c:418
+#: arping.c:914 arping.c:917 arping.c:920 ping/ping.c:372 ping/ping.c:418
 #: ping/ping.c:426 ping/ping.c:469 ping/ping.c:472 ping/ping.c:475
 #: ping/ping.c:488 tracepath.c:474 tracepath.c:477 tracepath.c:480
 #: tracepath.c:501
 msgid "invalid argument"
 msgstr "argumento inválido"
 
-#: arping.c:974
+#: arping.c:986
 #, c-format
 msgid "Device %s not available."
 msgstr "Dispositivo %s não disponível."
 
-#: arping.c:975
+#: arping.c:987
 msgid "Suitable device could not be determined. Please, use option -I."
 msgstr ""
 "Dispositivo adequado não pôde ser determinado. Por favor, use a opção -I."
 
-#: arping.c:995
+#: arping.c:1007
 msgid "WARNING: interface is ignored"
 msgstr "AVISO: interface ignorada"
 
-#: arping.c:1014
+#: arping.c:1026
 msgid "WARNING: setsockopt(SO_DONTROUTE)"
 msgstr "AVISO: setsockopt(SO_DONTROUTE)"
 
-#: arping.c:1038
+#: arping.c:1050
 #, c-format
 msgid "Interface \"%s\" is not ARPable (no ll address)\n"
 msgstr "Interface \"%s\" não está ARPável (nenhum endereço de enlace)\n"
 
-#: arping.c:1047
+#: arping.c:1059
 #, c-format
 msgid "ARPING %s "
 msgstr "ARPING %s "
 
-#: arping.c:1048
+#: arping.c:1060
 #, c-format
 msgid "from %s %s\n"
 msgstr "de %s %s\n"
 
-#: arping.c:1052
+#: arping.c:1064
 msgid "no source address in not-DAD mode"
 msgstr "nenhum endereço de origem em modo não DAD"
 
@@ -1401,6 +1416,10 @@ msgstr "retornado(s) %d "
 #, c-format
 msgid "pktlen must be within: %d < value <= %d"
 msgstr "pktlen deve estar entre: %d < valor <= %d"
+
+#, c-format
+#~ msgid "Sent %d probes (%d broadcast(s))\n"
+#~ msgstr "Enviadas %d sondas (%d broadcast(s))\n"
 
 #~ msgid "unknown interface"
 #~ msgstr "interface desconhecida"
