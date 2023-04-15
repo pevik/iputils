@@ -310,7 +310,6 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 	hold += ((hold + 511) / 512) * (40 + 16 + 64 + 160);
 	sock_setbufs(rts, sock, hold);
 
-#ifdef __linux__
 	if (sock->socktype == SOCK_RAW) {
 		int csum_offset = 2;
 		int sz_opt = sizeof(int);
@@ -322,9 +321,6 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			 */
 			error(0, errno, _("setsockopt(RAW_CHECKSUM) failed - try to continue"));
 		}
-#else
-	{
-#endif
 
 		/*
 		 *	select icmp echo reply as icmp type to receive
