@@ -1237,6 +1237,7 @@ pr_addr(__u32 addr)
 #else
 		s = NULL;
 #endif
+		printf("hp->h_name: %s\n", hp->h_name); // FIXME: debug
 		snprintf(buf, sizeof(buf), "%s (%s)", s ? s : hp->h_name,
 			 inet_ntoa(*(struct in_addr *)&addr));
 #if USE_IDN

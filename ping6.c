@@ -1807,6 +1807,7 @@ char * pr_addr(struct in6_addr *addr)
 	if (!(hp && memcmp(addr, &last_addr, sizeof(struct in6_addr))) &&
 	    !(exiting || options&F_NUMERIC)) {
 		hp = gethostbyaddr((__u8*)addr, sizeof(struct in6_addr), AF_INET6);
+		printf("hp->h_name: %s\n", hp->h_name); // FIXME: debug
 		memcpy(&last_addr, addr, sizeof(struct in6_addr));
 	}
 
