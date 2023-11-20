@@ -1014,6 +1014,10 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 
 	if (rts->datalen >= (int)sizeof(struct timeval))	/* can we time transfer */
 		rts->timing = 1;
+
+	printf("datalen: %ld, timing: %d, required: %d\n", rts->datalen,
+		   rts->timing, (int)sizeof(struct timeval)); // FIXME: debug
+
 	packlen = rts->datalen + MAXIPLEN + MAXICMPLEN;
 	if (!(packet = (unsigned char *)malloc((unsigned int)packlen)))
 		error(2, errno, _("memory allocation failed"));
@@ -1447,7 +1451,7 @@ int ping4_receive_error_msg(struct ping_rts *rts, socket_st *sock)
 		if (res < (ssize_t) sizeof(icmph) ||
 		    target.sin_addr.s_addr != rts->whereto.sin_addr.s_addr ||
 		    icmph.type != ICMP_ECHO ||
-		    !is_ours(rts, sock, icmph.un.echo.id)) {
+		    !is_ours(rts, sock, icmph.un.echo.id, icmph.un.echo.sequence)) {
 			/* Not our error, not an error at all. Clear. */
 			saved_errno = 0;
 			goto out;
@@ -1546,8 +1550,12 @@ int ping4_send_probe(struct ping_rts *rts, socket_st *sock, void *packet,
 	icp->un.echo.sequence = htons(rts->ntransmitted + 1);
 	icp->un.echo.id = rts->ident;			/* ID */
 
+	printf("%s un.echo.sequence: %d (%d), ", __FILE__,
+		   ntohs(icp->un.echo.sequence), icp->un.echo.sequence);
+
 	rcvd_clear(rts, rts->ntransmitted + 1);
 
+	// TODO: pev: also here data?
 	if (rts->timing) {
 		if (rts->opt_latency) {
 			struct timeval tmp_tv;
@@ -1565,8 +1573,11 @@ int ping4_send_probe(struct ping_rts *rts, socket_st *sock, void *packet,
 		gettimeofday(&tmp_tv, NULL);
 		memcpy(icp + 1, &tmp_tv, sizeof(tmp_tv));
 		icp->checksum = in_cksum((unsigned short *)&tmp_tv, sizeof(tmp_tv), ~icp->checksum);
+		printf("checksum if: '%d'", icp->checksum); // FIXME: debug
+		printf("[%lu, %lu] ", (unsigned long)tmp_tv.tv_sec, (unsigned long)tmp_tv.tv_usec);
 	} else {
 		icp->checksum = in_cksum((unsigned short *)icp, cc, 0);
+		printf("checksum else: '%d'\n", icp->checksum); // FIXME: debug
 	}
 
 	i = sendto(sock->fd, icp, cc, 0, (struct sockaddr *)&rts->whereto, sizeof(rts->whereto));
@@ -1644,7 +1655,7 @@ int ping4_parse_reply(struct ping_rts *rts, struct socket_st *sock,
 	csfailed = in_cksum((unsigned short *)icp, cc, 0);
 
 	if (icp->type == ICMP_ECHOREPLY) {
-		if (!is_ours(rts, sock, icp->un.echo.id))
+		if (!is_ours(rts, sock, icp->un.echo.id, icp->un.echo.sequence))
 			return 1;			/* 'Twas not our ECHO */
 
 		if (!rts->broadcast_pings && !rts->multicast &&
@@ -1679,7 +1690,7 @@ int ping4_parse_reply(struct ping_rts *rts, struct socket_st *sock,
 					return 1;
 				if (icp1->type != ICMP_ECHO ||
 				    iph->daddr != rts->whereto.sin_addr.s_addr ||
-				    !is_ours(rts, sock, icp1->un.echo.id))
+				    !is_ours(rts, sock, icp1->un.echo.id, icp1->un.echo.sequence))
 					return 1;
 				error_pkt = (icp->type != ICMP_REDIRECT &&
 					     icp->type != ICMP_SOURCE_QUENCH);
