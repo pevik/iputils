@@ -65,7 +65,7 @@ if xsltproc.found()
 	xsltproc_works = true
 	foreach doc_target : doc_targets
 		xsl = 'http://docbook.sourceforge.net/release/xsl-ns/current/' + doc_target + '/docbook.xsl'
-		testrun = run_command([xsltproc, '--nonet', xsl])
+		testrun = run_command(xsltproc, '--nonet', xsl, check: false)
 		if testrun.returncode() != 0
 			xsltproc_works = false
 			message('WARNING: xsltproc: cannot process ' + xsl)

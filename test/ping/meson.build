@@ -7,7 +7,7 @@
 ipv6_dst = []
 ipv6_switch = []
 ip = find_program('ip', required: false)
-if ip.found() and run_command(ip, '-6', 'a').stdout().contains('::1')
+if ip.found() and run_command(ip, '-6', 'a', check: false).stdout().contains('::1')
   message('IPv6 enabled')
   ipv6_dst = [ '::1' ]
   ipv6_switch = [ '-6' ]
@@ -18,7 +18,7 @@ else
 endif
 
 run_as_root = false
-r = run_command('id', '-u')
+r = run_command('id', '-u', check: false)
 if r.stdout().strip().to_int() == 0
   message('running as root')
   run_as_root = true
