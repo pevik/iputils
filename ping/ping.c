@@ -59,6 +59,7 @@
 #include <ifaddrs.h>
 #include <math.h>
 #include <locale.h>
+#include <sys/param.h>
 
 /* FIXME: global_rts will be removed in future */
 struct ping_rts *global_rts;
@@ -83,6 +84,12 @@ ping_func_set_st ping4_func_set = {
 #define	MAXICMPLEN	76
 #define	NROUTES		9		/* number of record route slots */
 #define TOS_MAX		255		/* 8-bit TOS field */
+
+/* max. IPv4 packet size - IPv4 header size - ICMP header size */
+#define ICMP_MAX_DATALEN (65535 - IPV4_HEADER_MINLEN - ICMP_HEADER_MINLEN)
+
+/* max. IPv6 payload size) - ICMPv6 Echo Reply Header */
+#define ICMPV6_MAX_DATALEN (65535 - sizeof (struct icmp6_hdr))
 
 #define CASE_TYPE(x) case x: return #x;
 
@@ -338,6 +345,9 @@ main(int argc, char **argv)
 		.ni.query = -1,
 		.ni.subject_type = -1,
 	};
+
+	size_t max_s = MAX(ICMP_MAX_DATALEN, ICMPV6_MAX_DATALEN);
+
 	/* FIXME: global_rts will be removed in future */
 	global_rts = &rts;
 
@@ -531,7 +541,7 @@ main(int argc, char **argv)
 			rts.opt_so_dontroute = 1;
 			break;
 		case 's':
-			rts.datalen = strtol_or_err(optarg, _("invalid argument"), 0, INT_MAX);
+			rts.datalen = strtol_or_err(optarg, _("invalid argument"), 0, max_s);
 			break;
 		case 'S':
 			rts.sndbuf = strtol_or_err(optarg, _("invalid argument"), 1, INT_MAX);
@@ -625,6 +635,19 @@ main(int argc, char **argv)
 		else if (sock6.fd == -1)
 			hints.ai_family = AF_INET;
 	}
+
+	switch (hints.ai_family) {
+	case AF_INET:
+		max_s = ICMP_MAX_DATALEN;
+		break;
+	case AF_INET6:
+		max_s = ICMPV6_MAX_DATALEN;
+		break;
+	}
+
+	if (rts.datalen > max_s)
+		error(EXIT_FAILURE, 0, "invalid -s value: '%ld': out of range: %d <= value <= %ld",
+		      rts.datalen,  0, max_s);
 
 	if (rts.opt_verbose)
 		error(0, 0, "sock4.fd: %d (socktype: %s), sock6.fd: %d (socktype: %s),"
