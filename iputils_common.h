@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+#define ICMP_HEADER_MINLEN	8
+#define IPV4_HEADER_MINLEN	20
+
 #define ARRAY_SIZE(arr) \
   (sizeof(arr) / sizeof((arr)[0]) + \
    sizeof(__typeof__(int[1 - 2 * \

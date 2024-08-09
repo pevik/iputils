@@ -578,7 +578,7 @@ main(int argc, char **argv)
 
 	target = argv[argc - 1];
 
-	rts.outpack = malloc(rts.datalen + 28);
+	rts.outpack = malloc(rts.datalen + ICMP_HEADER_MINLEN + IPV4_HEADER_MINLEN);
 	if (!rts.outpack)
 		error(2, errno, _("memory allocation failed"));
 	if (outpack_fill) {
@@ -993,8 +993,8 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 
 	/* Estimate memory eaten by single packet. It is rough estimate.
 	 * Actually, for small datalen's it depends on kernel side a lot. */
-	hold = rts->datalen + 8;
-	hold += ((hold + 511) / 512) * (rts->optlen + 20 + 16 + 64 + 160);
+	hold = rts->datalen + ICMP_HEADER_MINLEN;
+	hold += ((hold + 511) / 512) * (rts->optlen + IPV4_HEADER_MINLEN + 16 + 64 + 160);
 	sock_setbufs(rts, sock, hold);
 
 	if (rts->broadcast_pings) {
@@ -1023,9 +1023,12 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		error(2, errno, _("memory allocation failed"));
 
 	printf(_("PING %s (%s) "), rts->hostname, inet_ntoa(rts->whereto.sin_addr));
+
 	if (rts->device || rts->opt_strictsource)
 		printf(_("from %s %s: "), inet_ntoa(rts->source.sin_addr), rts->device ? rts->device : "");
-	printf(_("%zu(%zu) bytes of data.\n"), rts->datalen, rts->datalen + 8 + rts->optlen + 20);
+
+	printf(_("%zu(%zu) bytes of data.\n"), rts->datalen, rts->datalen +
+	       rts->optlen + IPV4_HEADER_MINLEN + ICMP_HEADER_MINLEN);
 
 	setup(rts, sock);
 	if (rts->opt_connect_sk &&
@@ -1218,7 +1221,7 @@ static void pr_iph(struct ping_rts *rts, struct iphdr *ip)
 	unsigned char *cp;
 
 	hlen = ip->ihl << 2;
-	cp = (unsigned char *)ip + 20;		/* point to options */
+	cp = (unsigned char *)ip + IPV4_HEADER_MINLEN;	/* point to options */
 
 	printf(_("Vr HL TOS  Len   ID Flg  off TTL Pro  cks      Src      Dst Data\n"));
 	printf(_(" %1x  %1x  %02x %04x %04x"),
@@ -1562,7 +1565,7 @@ int ping4_send_probe(struct ping_rts *rts, socket_st *sock, void *packet,
 		}
 	}
 
-	cc = rts->datalen + 8;			/* skips ICMP portion */
+	cc = rts->datalen + ICMP_HEADER_MINLEN;		/* skips ICMP portion */
 
 	/* compute ICMP checksum here */
 	icp->checksum = in_cksum((unsigned short *)icp, cc, 0);
@@ -1614,7 +1617,7 @@ int ping4_parse_reply(struct ping_rts *rts, struct socket_st *sock,
 	ip = (struct iphdr *)buf;
 	if (sock->socktype == SOCK_RAW) {
 		hlen = ip->ihl * 4;
-		if (cc < hlen + 8 || ip->ihl < 5) {
+		if (cc < hlen + ICMP_HEADER_MINLEN || ip->ihl < 5) {
 			if (rts->opt_verbose)
 				error(0, 0, _("packet too short (%d bytes) from %s"), cc,
 					pr_addr(rts,from, sizeof *from));
@@ -1679,8 +1682,8 @@ int ping4_parse_reply(struct ping_rts *rts, struct socket_st *sock,
 				struct icmphdr *icp1 = (struct icmphdr *)
 						((unsigned char *)iph + iph->ihl * 4);
 				int error_pkt;
-				if (cc < (int)(8 + sizeof(struct iphdr) + 8) ||
-				    cc < 8 + iph->ihl * 4 + 8)
+				if (cc < (int)(ICMP_HEADER_MINLEN + sizeof(struct iphdr) + ICMP_HEADER_MINLEN) ||
+				    cc < ICMP_HEADER_MINLEN + iph->ihl * 4 + ICMP_HEADER_MINLEN)
 					return 1;
 				if (icp1->type != ICMP_ECHO ||
 				    iph->daddr != rts->whereto.sin_addr.s_addr ||

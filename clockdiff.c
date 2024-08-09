@@ -233,7 +233,7 @@ static int measure_inner_loop(struct run_state *ctl, struct measure_vars *mv)
 	    && mv->icp->un.echo.id == ctl->id && mv->icp->un.echo.sequence >= ctl->seqno0
 	    && mv->icp->un.echo.sequence <= ctl->seqno) {
 		int i;
-		uint8_t *opt = mv->packet + 20;
+		uint8_t *opt = mv->packet + IPV4_HEADER_MINLEN;
 
 		if (ctl->acked < mv->icp->un.echo.sequence)
 			ctl->acked = mv->icp->un.echo.sequence;

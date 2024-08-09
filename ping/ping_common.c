@@ -207,7 +207,7 @@ void fill(struct ping_rts *rts, char *patp, unsigned char *packet, size_t packet
 	int ii, jj;
 	unsigned int pat[16];
 	char *cp;
-	unsigned char *bp = packet + 8;
+	unsigned char *bp = packet + ICMP_HEADER_MINLEN;
 
 #ifdef USE_IDN
 	setlocale(LC_ALL, "C");
@@ -225,7 +225,8 @@ void fill(struct ping_rts *rts, char *patp, unsigned char *packet, size_t packet
 
 	if (ii > 0) {
 		size_t kk;
-		size_t max = packet_size < (size_t)ii + 8 ? 0 : packet_size - (size_t)ii + 8;
+		size_t max = packet_size < (size_t)ii + ICMP_HEADER_MINLEN ? 0 :
+			packet_size - (size_t)ii + ICMP_HEADER_MINLEN;
 
 		for (kk = 0; kk <= max; kk += ii)
 			for (jj = 0; jj < ii; ++jj)
@@ -538,7 +539,7 @@ void setup(struct ping_rts *rts, socket_st *sock)
 
 	if (!rts->opt_pingfilled) {
 		size_t i;
-		unsigned char *p = rts->outpack + 8;
+		unsigned char *p = rts->outpack + ICMP_HEADER_MINLEN;
 
 		/* Do not forget about case of small datalen, fill timestamp area too! */
 		for (i = 0; i < rts->datalen; ++i)
@@ -815,7 +816,7 @@ restamp:
 		if (hops >= 0)
 			printf(_(" ttl=%d"), hops);
 
-		if ((size_t)cc < rts->datalen + 8) {
+		if ((size_t)cc < rts->datalen + ICMP_HEADER_MINLEN) {
 			printf(_(" (truncated)\n"));
 			return 1;
 		}

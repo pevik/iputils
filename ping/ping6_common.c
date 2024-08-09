@@ -303,7 +303,7 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		/* can we time transfer */
 		rts->timing = 1;
 	}
-	packlen = rts->datalen + 8 + 4096 + 40 + 8; /* 4096 for rthdr */
+	packlen = rts->datalen + ICMPV6_HEADER_MINLEN + 4096 + 40 + ICMPV6_HEADER_MINLEN; /* 4096 for rthdr */
 	if (!(packet = (unsigned char *)malloc((unsigned int)packlen)))
 		error(2, errno, _("memory allocation failed"));
 
@@ -313,7 +313,7 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 
 	/* Estimate memory eaten by single packet. It is rough estimate.
 	 * Actually, for small datalen's it depends on kernel side a lot. */
-	hold = rts->datalen + 8;
+	hold = rts->datalen + ICMPV6_HEADER_MINLEN;
 	hold += ((hold + 511) / 512) * (40 + 16 + 64 + 160);
 	sock_setbufs(rts, sock, hold);
 
@@ -603,7 +603,7 @@ int build_echo(struct ping_rts *rts, uint8_t *_icmph,
 	if (rts->timing)
 		gettimeofday((struct timeval *)&_icmph[8], NULL);
 
-	cc = rts->datalen + 8;			/* skips ICMP portion */
+	cc = rts->datalen + ICMPV6_HEADER_MINLEN;		/* skips ICMP portion */
 
 	return cc;
 }
@@ -895,7 +895,7 @@ int ping6_parse_reply(struct ping_rts *rts, socket_st *sock,
 		 * using RECVRERR. :-)
 		 */
 
-		if (cc < (int)(8 + sizeof(struct ip6_hdr) + 8))
+		if (cc < (int)(8 + sizeof(struct ip6_hdr) + ICMPV6_HEADER_MINLEN))
 			return 1;
 
 		if (memcmp(&iph1->ip6_dst, &rts->whereto6.sin6_addr, 16))
