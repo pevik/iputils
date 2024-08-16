@@ -399,7 +399,7 @@ char *str_interval(int interval);
 
 int is_ours(struct ping_rts *rts, socket_st *sock, uint16_t id);
 extern int pinger(struct ping_rts *rts, ping_func_set_st *fset, socket_st *sock);
-extern void sock_setbufs(struct ping_rts *rts, socket_st *, int alloc);
+extern void sock_setbufs(struct ping_rts *rts, socket_st *sock, size_t alloc);
 extern void sock_setmark(struct ping_rts *rts, int fd);
 extern void setup(struct ping_rts *rts, socket_st *);
 extern int main_loop(struct ping_rts *rts, ping_func_set_st *fset, socket_st*,

@@ -437,9 +437,9 @@ hard_local_error:
 
 /* Set socket buffers, "alloc" is an estimate of memory taken by single packet. */
 
-void sock_setbufs(struct ping_rts *rts, socket_st *sock, int alloc)
+void sock_setbufs(struct ping_rts *rts, socket_st *sock, size_t alloc)
 {
-	int rcvbuf, hold;
+	size_t rcvbuf, hold;
 	socklen_t tmplen = sizeof(hold);
 
 	if (!rts->sndbuf)

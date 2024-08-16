@@ -749,7 +749,7 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		.ai_protocol = IPPROTO_UDP,
 		.ai_flags = getaddrinfo_flags
 	};
-	int hold, packlen;
+	size_t hold, packlen;
 	unsigned char *packet;
 	char *target;
 	char hnamebuf[NI_MAXHOST];

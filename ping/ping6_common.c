@@ -104,8 +104,7 @@ unsigned int if_name2index(const char *ifname)
 int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 	      struct socket_st *sock)
 {
-	int hold, packlen;
-	size_t i;
+	size_t hold, i, packlen;
 	unsigned char *packet;
 	char *target;
 	struct icmp6_filter filter;
@@ -304,7 +303,7 @@ int ping6_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		rts->timing = 1;
 	}
 	packlen = rts->datalen + 8 + 4096 + 40 + 8; /* 4096 for rthdr */
-	if (!(packet = (unsigned char *)malloc((unsigned int)packlen)))
+	if (!(packet = malloc((unsigned int)packlen)))
 		error(2, errno, _("memory allocation failed"));
 
 	hold = 1;
