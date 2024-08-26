@@ -647,7 +647,7 @@ main(int argc, char **argv)
 	int target_ai_family = hints.ai_family;
 	hints.ai_family = AF_UNSPEC;
 
-	unsigned char buf[sizeof(struct in6_addr)];
+	char buf[INET6_ADDRSTRLEN];
 	if (!strchr(target, '%') && sock6.socktype == SOCK_DGRAM &&
 		inet_pton(AF_INET6, target, buf) > 0 &&
 		(IN6_IS_ADDR_LINKLOCAL(buf) || IN6_IS_ADDR_MC_LINKLOCAL(buf))) {
