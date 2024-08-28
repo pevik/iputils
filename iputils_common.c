@@ -33,6 +33,18 @@ void error(int status, int errnum, const char *format, ...)
 }
 #endif
 
+/* exit without errno message */
+#define EXIT_NO_PACKETS(...) error(EXIT_FAILURE, 0, __VA_ARGS__)
+#define EXIT_OTHER(status, ...) error(2, 0, __VA_ARGS__)
+
+/* exit with errno message */
+#define EXIT_NO_PACKETS_ERRNO(errnum...) error(EXIT_FAILURE, errnum, __VA_ARGS__)
+#define EXIT_OTHER_ERRNO(status, errnum...) error(2, errnum, __VA_ARGS__)
+
+/* warn only */
+#define WARN(...) error(0, 0, __VA_ARGS__)
+#define WARN_ERRNO(errnum, ...) error(0, errnum, __VA_ARGS__)
+
 int close_stream(FILE *stream)
 {
 	const int flush_status = fflush(stream);
