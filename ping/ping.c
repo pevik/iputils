@@ -1420,8 +1420,13 @@ int ping4_receive_error_msg(struct ping_rts *rts, socket_st *sock)
 
 	res = recvmsg(sock->fd, &msg, MSG_ERRQUEUE | MSG_DONTWAIT);
 	if (res < 0) {
-		if (errno == EAGAIN || errno == EINTR)
+		if (errno == EAGAIN || errno == EINTR) {
 			local_errors++;
+
+			/* SOCK_DGRAM fails on -s > 65527  */
+			if (saved_errno == EMSGSIZE)
+				rts->nerrors++;
+		}
 		goto out;
 	}
 
