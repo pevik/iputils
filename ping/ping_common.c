@@ -401,6 +401,11 @@ resend:
 		/* Socket buffer is full. */
 		tokens += rts->interval;
 		return MIN_INTERVAL_MS;
+	} else if (errno == EMSGSIZE) {
+		/* SOCK_DGRAM fails on -s > 65527 */
+		rts->nerrors++;
+		i = 0;
+		goto hard_local_error;
 	} else {
 		if ((i = fset->receive_error_msg(rts, sock)) > 0) {
 			/* An ICMP error arrived. In this case, we've received
