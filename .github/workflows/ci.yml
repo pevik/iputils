@@ -25,18 +25,24 @@ jobs:
               ARCH: arm64
               CC: aarch64-linux-gnu-gcc
               VARIANT: cross-compile
+              # don't run on cross compilation, it causes to run the tests
+              SKIP_DISC: true
 
           - container: "debian:testing"
             env:
               ARCH: ppc64el
               CC: powerpc64le-linux-gnu-gcc
               VARIANT: cross-compile
+              # don't run on cross compilation, it causes to run the tests
+              SKIP_DISC: true
 
           - container: "debian:testing"
             env:
               ARCH: s390x
               CC: s390x-linux-gnu-gcc
               VARIANT: cross-compile
+              # don't run on cross compilation, it causes to run the tests
+              SKIP_DISC: true
 
           # musl (native)
           - container: "alpine:latest"
