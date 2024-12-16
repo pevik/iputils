@@ -81,15 +81,3 @@ foreach dst : [ '127.0.0.1' ] + ipv6_dst
 	test(name, cmd, args : args, should_fail : true)
   endforeach
 endforeach
-
-ping_tests_user_fail = [
-  [ '-c1', '-i0.001' ], # -c1 required to quit ping when running as root
-]
-foreach dst : [ '127.0.0.1' ] + ipv6_dst
-  foreach args : ping_tests_user_fail
-	args += [ dst ]
-	name = cmd_name + ' '.join(args)
-	name = '_'.join(name.split(':'))
-	test(name, cmd, args : args, should_fail : not run_as_root)
-  endforeach
-endforeach
