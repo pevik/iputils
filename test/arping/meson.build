@@ -1,9 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (c) 2021 Petr Vorel <pvorel@suse.cz>
+# Copyright (c) 2021-2025 Petr Vorel <pvorel@suse.cz>
 
-cmd = arping
-cmd_name = 'arping '
-args = ['-V']
+message('Build directory is: ' + meson.current_build_dir())
 
-name = cmd_name + ' '.join(args)
-test(name, cmd, args : args)
+cur_build = meson.current_build_dir()
+build_root = meson.build_root()
+rel_path = cur_build.replace(build_root + '/', '')
+
+foreach t : ['arping-01-basic.pl']
+  test(rel_path + '/' + t, find_program(t), args: arping)
+endforeach
