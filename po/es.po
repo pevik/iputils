@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-03 22:19+0100\n"
-"PO-Revision-Date: 2025-04-20 17:32+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2025-04-21 17:53+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/iputils/"
 "iputils/es/>\n"
 "Language: es\n"
@@ -598,133 +597,134 @@ msgstr " desconocido"
 #: ping/ping6_common.c:813
 #, c-format
 msgid " unknown code(%02x)"
-msgstr ""
+msgstr " desconoce código(%02x)"
 
 #: ping/ping6_common.c:815
 #, c-format
 msgid "; seq=%u;"
-msgstr ""
+msgstr "; sec=%u;"
 
 #: ping/ping6_common.c:856
 #, c-format
 msgid "packet too short: %d bytes"
-msgstr ""
+msgstr "paquete muy corto: %d bytes"
 
 #: ping/ping6_common.c:923 ping/ping.c:1759
 #, c-format
 msgid "From %s: "
-msgstr ""
+msgstr "Origen %s: "
 
 #: ping/ping6_common.c:964 ping/ping.c:1864
 msgid "WARNING: failed to install socket filter"
-msgstr ""
+msgstr "AVISO: incorrecto para instalar filtro de zócalo"
 
 #: ping/ping.c:103 ping/ping.c:724
 #, c-format
 msgid "unknown protocol family: %d"
-msgstr ""
+msgstr "desconoce familia de protocolo: %d"
 
 #: ping/ping.c:118
 #, c-format
 msgid "unknown sock type: %d"
-msgstr ""
+msgstr "desc. tipo de zócalo: %d"
 
 #: ping/ping.c:213
 msgid "=> missing cap_net_raw+p capability or setuid?"
-msgstr ""
+msgstr "→ falta capacidad cap_net_raw+p o setupid?"
 
 #: ping/ping.c:252
 #, c-format
 msgid "option argument contains garbage: %s"
-msgstr ""
+msgstr "arg. opcional contiene basura: %s"
 
 #: ping/ping.c:253
 msgid "this will become fatal error in the future"
-msgstr ""
+msgstr "esto se convertirá en error fatal en el futuro"
 
 #: ping/ping.c:287
 #, c-format
 msgid "bad value for flowinfo: %s"
-msgstr ""
+msgstr "valor inadecuado para info de flujo: %s"
 
 #: ping/ping.c:290
 #, c-format
 msgid "flow value is greater than 20 bits: %s"
-msgstr ""
+msgstr "valor flujo es mayor que 20 bit: %s"
 
 #: ping/ping.c:312
 #, c-format
 msgid "bad TOS value: %s"
-msgstr ""
+msgstr "valor TOS incorrecto: %s"
 
 #: ping/ping.c:315
 #, c-format
 msgid "the decimal value of TOS bits must be in range 0-255: %d"
 msgstr ""
+"el valor decimal de los bit TOS debe estar dentro del intervalo 0-255: %d"
 
 #: ping/ping.c:398 ping/ping.c:432
 msgid "only one -4 or -6 option may be specified"
-msgstr ""
+msgstr "solo una opción -4 o -6 puede especificarse"
 
 #: ping/ping.c:413 ping/ping.c:418
 msgid "only one of -T or -R may be used"
-msgstr ""
+msgstr "solo puede usarse una de -T o -R"
 
 #: ping/ping.c:427
 #, c-format
 msgid "invalid timestamp type: %s"
-msgstr ""
+msgstr "tipo de sello de hora no válida: %s"
 
 #: ping/ping.c:473
 msgid "bad timing interval"
-msgstr ""
+msgstr "intervalo temporal incorrecto"
 
 #: ping/ping.c:475
 #, c-format
 msgid "bad timing interval: %s"
-msgstr ""
+msgstr "temp. inc. de inter. %s"
 
 #: ping/ping.c:486
 #, c-format
 msgid "cannot copy: %s"
-msgstr ""
+msgstr "no puede copiar: %s"
 
 #: ping/ping.c:495
 #, c-format
 msgid "invalid source address: %s"
-msgstr ""
+msgstr "direc origen no válido: %s"
 
 #: ping/ping.c:509
 #, c-format
 msgid "cannot set preload to value greater than 3: %d"
-msgstr ""
+msgstr "no se pude fijar precarga a valor mayor que 3: %d"
 
 #: ping/ping.c:528
 #, c-format
 msgid "invalid -M argument: %s"
-msgstr ""
+msgstr "argumento -M no válido: %s"
 
 #: ping/ping.c:585
 msgid "bad linger time"
-msgstr ""
+msgstr "tiempo pers. inco."
 
 #: ping/ping.c:587
 #, c-format
 msgid "bad linger time: %s"
-msgstr ""
+msgstr "tmp perso. incor: %s"
 
 #: ping/ping.c:599
 msgid "WARNING: reverse DNS resolution (PTR lookup) disabled, enforce with -H"
-msgstr ""
+msgstr "AVISO: resolución DNS reversa (PTR lookup) deshabilitada, fuerza con -H"
 
 #: ping/ping.c:618
 msgid "WARNING: ident 0 => forcing raw socket"
-msgstr ""
+msgstr "AVISO: ident 0 → forzando zócalo crudo"
 
 #: ping/ping.c:664
 #, c-format
 msgid "invalid -s value: '%d': out of range: 0 <= value <= %d"
-msgstr ""
+msgstr "valor -s no válido: '%d': fuera de intervalo: 0 <= valor <= %d"
 
 #: ping/ping.c:692
 #, c-format
@@ -732,29 +732,33 @@ msgid ""
 "Warning: IPv6 link-local address on ICMP datagram socket may require ifname "
 "or scope-id => use: address%%<ifname|scope-id>"
 msgstr ""
+"Aviso: enlace IPV6 local de dirección en zócalo datagrama ICMP puede "
+"requerir ifname o scope-id => empleo: dirección%%<ifname|id-ámbito>"
 
 #: ping/ping.c:869
 msgid "warning: QOS sockopts"
-msgstr ""
+msgstr "aviso: QOS sockopts"
 
 #: ping/ping.c:880
 msgid ""
 "Do you want to ping broadcast? Then -b. If not, check your local firewall "
 "rules"
 msgstr ""
+"¿Desea un ping broadcast? Entonces -b. Si no, compruebe sus reglas de "
+"cortafuego local"
 
 #: ping/ping.c:881
 #, c-format
 msgid "WARNING: pinging broadcast address\n"
-msgstr ""
+msgstr "AVISO: dirección de ping broadcast\n"
 
 #: ping/ping.c:884 ping/ping.c:1039
 msgid "cannot set broadcasting"
-msgstr ""
+msgstr "no se puede establecer broadcasting"
 
 #: ping/ping.c:905
 msgid "gatifaddrs failed"
-msgstr ""
+msgstr "gatifaddrs incorrecto"
 
 #: ping/ping.c:933
 #, c-format
@@ -762,6 +766,8 @@ msgid ""
 "minimal interval for broadcast ping for user must be >= %d ms, use -i %s (or "
 "higher)"
 msgstr ""
+"intervalo minimal para ping broadcast para usuario debe ser >= %d ms, "
+"utilice -i %s (o mayor)"
 
 #: ping/ping.c:938
 msgid "broadcast ping does not fragment"
@@ -841,12 +847,12 @@ msgstr ""
 #: ping/ping.c:1220
 #, c-format
 msgid "\t%ld not-standard"
-msgstr ""
+msgstr "\t%ld no-estándar"
 
 #: ping/ping.c:1224
 #, c-format
 msgid "\t%ld absolute"
-msgstr ""
+msgstr "\t%ld absoluto"
 
 #: ping/ping.c:1235
 #, c-format
@@ -978,7 +984,7 @@ msgstr ""
 #: ping/ping.c:1348
 #, c-format
 msgid "Redirect Network"
-msgstr ""
+msgstr "Redirigir Red"
 
 #: ping/ping.c:1351
 #, c-format
@@ -1043,7 +1049,7 @@ msgstr ""
 #: ping/ping.c:1410
 #, c-format
 msgid "Information Request\n"
-msgstr ""
+msgstr "Solicitar Información\n"
 
 #: ping/ping.c:1414
 #, c-format
@@ -1174,7 +1180,7 @@ msgstr ""
 #: ping/ping_common.c:476
 #, c-format
 msgid "WARNING: failed to set mark: %u"
-msgstr ""
+msgstr "AVISO: ha fallado al fijar marca: %u"
 
 #: ping/ping_common.c:479
 msgid ""
