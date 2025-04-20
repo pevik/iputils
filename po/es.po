@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: iputils\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-03 22:19+0100\n"
-"PO-Revision-Date: 2025-04-20 17:26+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2025-04-20 17:32+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/iputils/"
 "iputils/es/>\n"
 "Language: es\n"
@@ -504,91 +503,91 @@ msgstr "Opción desconocida "
 #: ping/ping6_common.c:474
 #, c-format
 msgid "code %d "
-msgstr ""
+msgstr "código %d "
 
 #: ping/ping6_common.c:475
 #, c-format
 msgid "at %u"
-msgstr ""
+msgstr "en %u"
 
 #: ping/ping6_common.c:478
 #, c-format
 msgid "Echo request"
-msgstr ""
+msgstr "Solicitar eco"
 
 #: ping/ping6_common.c:481
 #, c-format
 msgid "Echo reply"
-msgstr ""
+msgstr "Responder eco"
 
 #: ping/ping6_common.c:484
 #, c-format
 msgid "MLD Query"
-msgstr ""
+msgstr "Petición MLD"
 
 #: ping/ping6_common.c:487
 #, c-format
 msgid "MLD Report"
-msgstr ""
+msgstr "Informe MLD"
 
 #: ping/ping6_common.c:490
 #, c-format
 msgid "MLD Reduction"
-msgstr ""
+msgstr "Reducción MLD"
 
 #: ping/ping6_common.c:493
 #, c-format
 msgid "unknown icmp type: %u"
-msgstr ""
+msgstr "tipo icmp desconocido: %u"
 
 #: ping/ping6_common.c:547 ping/ping.c:1480
 msgid "local error"
-msgstr ""
+msgstr "error local"
 
 #: ping/ping6_common.c:549
 #, c-format
 msgid "local error: message too long, mtu: %u"
-msgstr ""
+msgstr "error local: mensaje muy largo, mtu: %u"
 
 #: ping/ping6_common.c:571 ping/ping.c:1516
 #, c-format
 msgid "From %s icmp_seq=%u "
-msgstr ""
+msgstr "Origen %s icmp_seq=%u "
 
 #: ping/ping6_common.c:677 ping/ping.c:1630
 #, c-format
 msgid " icmp_seq=%u"
-msgstr ""
+msgstr " icmp_seq=%u"
 
 #: ping/ping6_common.c:701 ping/ping6_common.c:762
 #, c-format
 msgid " parse error (too short)"
-msgstr ""
+msgstr " error intérprete (muy breve)"
 
 #: ping/ping6_common.c:715 ping/ping6_common.c:771
 #, c-format
 msgid " parse error (truncated)"
-msgstr ""
+msgstr " error intérprete (truncado)"
 
 #: ping/ping6_common.c:775
 #, c-format
 msgid " unexpected error in inet_ntop(%s)"
-msgstr ""
+msgstr " error inesperado en inet_ntop(%s)"
 
 #: ping/ping6_common.c:784
 #, c-format
 msgid " (truncated)"
-msgstr ""
+msgstr " (truncado)"
 
 #: ping/ping6_common.c:803
 #, c-format
 msgid " unknown qtype(0x%02x)"
-msgstr ""
+msgstr " desconocimiento de qtype(0x%02x)"
 
 #: ping/ping6_common.c:807
 #, c-format
 msgid " refused"
-msgstr ""
+msgstr " rechazado"
 
 #: ping/ping6_common.c:810
 #, c-format
