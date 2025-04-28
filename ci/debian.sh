@@ -1,6 +1,6 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (c) 2019-2024 Petr Vorel <petr.vorel@gmail.com>
+# Copyright (c) 2019-2025 Petr Vorel <petr.vorel@gmail.com>
 set -ex
 
 if [ "$DISTRO_VERSION" = "xenial" ]; then
@@ -26,6 +26,7 @@ apt install -y --no-install-recommends \
 	jq \
 	libcap-dev \
 	libidn2-0-dev \
+	libtest-command-perl \
 	meson \
 	pkg-config \
 	xsltproc
