@@ -1,6 +1,6 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (c) 2018-2024 Petr Vorel <pvorel@suse.cz>
+# Copyright (c) 2018-2025 Petr Vorel <pvorel@suse.cz>
 set -ex
 
 zypper --non-interactive install --no-recommends \
@@ -19,4 +19,5 @@ zypper --non-interactive install --no-recommends \
 	libxslt-tools \
 	meson \
 	ninja \
+	perl-Test-Command \
 	pkg-config
