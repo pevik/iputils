@@ -19,4 +19,5 @@ zypper --non-interactive install --no-recommends \
 	libxslt-tools \
 	meson \
 	ninja \
+	perl-Test-Command \
 	pkg-config
