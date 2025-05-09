@@ -53,7 +53,7 @@ ENABLE_RDISC_SERVER=no
 # What a pity, all new gccs are buggy and -Werror does not work. Sigh.
 # CFLAGS+=-fno-strict-aliasing -Wstrict-prototypes -Wall -Werror -g
 CFLAGS?=-O3 -g
-CFLAGS+=-fno-strict-aliasing -Wstrict-prototypes -Wall
+CFLAGS+=-fno-strict-aliasing -Wstrict-prototypes -Wall -fcommon
 CPPFLAGS+=-D_GNU_SOURCE
 LDLIB=
 
