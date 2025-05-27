@@ -110,7 +110,8 @@ IPV4_TARGETS=tracepath ping clockdiff rdisc arping tftpd rarpd
 IPV6_TARGETS=tracepath6 traceroute6 ping6
 TARGETS=$(IPV4_TARGETS) $(IPV6_TARGETS)
 
-CFLAGS=$(CCOPTOPT) $(CCOPT) $(GLIBCFIX) $(DEFINES)
+# broken: -fsanitize=address,undefined
+CFLAGS=$(CCOPTOPT) $(CCOPT) $(GLIBCFIX) $(DEFINES) -g -fno-omit-frame-pointer -fcommon
 LDLIBS=$(LDLIB) $(ADDLIB)
 
 UNAME_N:=$(shell uname -n)
