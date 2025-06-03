@@ -48,9 +48,8 @@ ENABLE_RDISC_SERVER=no
 
 # -------------------------------------
 # What a pity, all new gccs are buggy and -Werror does not work. Sigh.
-# CCOPT=-fno-strict-aliasing -Wstrict-prototypes -Wall -Werror -g
-CCOPT=-fno-strict-aliasing -Wstrict-prototypes -Wall -g
-CCOPTOPT=-O3
+# -fsanitize=address,undefined fails with undefined reference to `__asan_init' and others
+CCOPT=-fno-strict-aliasing -Wstrict-prototypes -Wall -fcommon -O1 -g -fno-omit-frame-pointer
 GLIBCFIX=-D_GNU_SOURCE
 DEFINES=
 LDLIB=
