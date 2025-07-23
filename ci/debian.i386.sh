@@ -7,7 +7,6 @@ apt update
 
 apt install -y --no-install-recommends \
 	gcc-multilib \
-	libcap-dev:i386 \
 	libc6-dev-i386 \
 	libc6:i386 \
 	libidn2-0-dev:i386 \

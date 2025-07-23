@@ -31,7 +31,6 @@ apt install -y --no-install-recommends \
 	dpkg-dev \
 	gcc-${gcc_arch}-linux-gnu \
 	libc6-dev-${ARCH}-cross \
-	libcap-dev:$ARCH \
 	libidn2-0-dev:$ARCH
 
 cat <<EOF > meson.cross

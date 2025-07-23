@@ -12,7 +12,6 @@ yum -y install \
 	git \
 	iproute \
 	jq \
-	libcap-devel \
 	libxslt \
 	pkg-config
 

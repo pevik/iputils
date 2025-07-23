@@ -16,7 +16,6 @@ apk add \
 	gettext-dev \
 	iproute2 \
 	jq \
-	libcap-dev \
 	libxslt \
 	meson \
 	musl-dev \

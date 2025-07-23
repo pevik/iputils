@@ -13,8 +13,6 @@ zypper --non-interactive install --no-recommends \
 	git \
 	iproute2 \
 	jq \
-	libcap-devel \
-	libcap-progs \
 	libidn2-devel \
 	libxslt-tools \
 	meson \

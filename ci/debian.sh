@@ -24,7 +24,6 @@ apt install -y --no-install-recommends \
 	git \
 	iproute2 \
 	jq \
-	libcap-dev \
 	libidn2-0-dev \
 	meson \
 	pkg-config \
