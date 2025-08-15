@@ -14,7 +14,8 @@ yum -y install \
 	jq \
 	libcap-devel \
 	libxslt \
-	pkg-config
+	pkg-config \
+	sudo
 
 if [ "$(basename $0)" = "centos.sh" ] || [ "$(basename $0)" = "rockylinux.sh" ]; then
 	# CentOS Linux 7: libidn2-devel, meson, ninja-build are provided by EPEL

@@ -104,7 +104,7 @@ jobs:
     container:
       image: ${{ matrix.container }}
       env: ${{ matrix.env }}
-      options: --security-opt seccomp=unconfined
+      options: --security-opt seccomp=unconfined  --user 1000
 
     steps:
     - name: Show OS
@@ -114,7 +114,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Fix permissions
-      run: chown -Rv $(id -u):$(id -g) .
+      run: sudo chown -Rv $(id -u):$(id -g) .
 
     - name: Install additional packages
       run: |

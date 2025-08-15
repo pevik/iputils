@@ -20,4 +20,5 @@ apk add \
 	libxslt \
 	meson \
 	musl-dev \
-	pkgconfig
+	pkgconfig \
+	sudo

@@ -28,4 +28,5 @@ apt install -y --no-install-recommends \
 	libidn2-0-dev \
 	meson \
 	pkg-config \
+	sudo \
 	xsltproc
