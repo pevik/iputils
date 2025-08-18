@@ -1,9 +1,11 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (c) 2019-2024 Petr Vorel <petr.vorel@gmail.com>
+# Copyright (c) 2019-2025 Petr Vorel <petr.vorel@gmail.com>
 set -ex
 
-yum -y install \
+yum='yum -y install'
+
+$yum \
 	clang \
 	file \
 	findutils \
@@ -32,3 +34,8 @@ if [ "$(basename $0)" = "centos.sh" ] || [ "$(basename $0)" = "rockylinux.sh" ];
 fi
 
 yum -y install docbook5-style-xsl libidn2-devel meson ninja-build
+
+if ! $yum perl-Test-Command; then
+	$yum perl-CPAN
+	perl -MCPAN -e 'install Test::Command; install Test::More'
+fi
