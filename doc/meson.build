@@ -22,27 +22,23 @@ if build_tracepath == true
 endif
 
 # Use the docs included in a dist tarball if available
-if meson.version().version_compare('>=0.58.0')
-	fs = import('fs')
-	out_man_pages = []
-	out_html_pages = []
-	generated_docs_exist = true
-	foreach page : manpages
-		man_page_name = page + '.8'
-		html_page_name = page + '.html'
-		out_man_pages += man_page_name
-		out_html_pages += html_page_name
-		if not fs.exists(man_page_name) or not fs.exists(html_page_name)
-			generated_docs_exist = false
-		endif
-	endforeach
-	if generated_docs_exist
-		install_man(out_man_pages)
-	        install_data(out_html_pages, install_dir : join_paths(get_option('datadir'), meson.project_name()))
-		subdir_done()
+fs = import('fs')
+out_man_pages = []
+out_html_pages = []
+generated_docs_exist = true
+foreach page : manpages
+	man_page_name = page + '.8'
+	html_page_name = page + '.html'
+	out_man_pages += man_page_name
+	out_html_pages += html_page_name
+	if not fs.exists(man_page_name) or not fs.exists(html_page_name)
+		generated_docs_exist = false
 	endif
-else
-	warning('Will not attempt to use pre-generated man pages (meson <0.58.0)')
+endforeach
+if generated_docs_exist
+	install_man(out_man_pages)
+		install_data(out_html_pages, install_dir : join_paths(get_option('datadir'), meson.project_name()))
+	subdir_done()
 endif
 
 xsltproc = find_program('xsltproc', required : build_mans or build_html_mans)
