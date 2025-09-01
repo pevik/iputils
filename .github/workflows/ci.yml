@@ -97,9 +97,6 @@ jobs:
           - container: "debian:oldstable"
             env:
               CC: clang
-              # meson 0.56.2 is too old
-              # meson dist: error: argument --formats: invalid choice: 'xztar,gztar,zip' (choose from 'gztar', 'xztar', 'zip')
-              SKIP_DISC: true
 
     container:
       image: ${{ matrix.container }}
