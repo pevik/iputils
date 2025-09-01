@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (c) Iputils Project, 2017-2024
+# Copyright (c) Iputils Project, 2017-2025
 
 project('iputils', 'c',
 	default_options : [
@@ -7,7 +7,7 @@ project('iputils', 'c',
 		'warning_level=3',
 		'localstatedir=var',
 	],
-	meson_version : '>=0.44', # >=0.58 is required for 'meson dist'
+	meson_version : '>=1.0.1',
 	version : '20250605') # keep in sync with: git describe | awk -F- '{print $1}'
 
 cc = meson.get_compiler('c')
