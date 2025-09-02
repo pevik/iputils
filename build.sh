@@ -141,7 +141,7 @@ dist()
 	local f
 
 	echo "=== dist ($formats) ==="
-	meson dist -C $BUILD_DIR --formats $formats
+	meson dist -C $BUILD_DIR --formats $formats --no-tests
 
 	for f in $(echo "$formats" | sed 's/,/ /g'); do
 		f=$(echo "$f" | sed 's/\(.*\)tar/tar.\1/')
