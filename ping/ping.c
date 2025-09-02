@@ -698,10 +698,12 @@ main(int argc, char **argv)
 		error(2, 0, "%s: %s", target, gai_strerror(ret_val));
 
 	for (ai = result; ai; ai = ai->ai_next) {
-		if (rts.opt_verbose)
-			error(0, 0, "ai->ai_family: %s, ai->ai_canonname: '%s'",
+		if (rts.opt_verbose) {
+			error(0, 0, "target_ai_family: %s, ai->ai_family: %s, ai->ai_canonname: '%s'",
+				   str_family(target_ai_family),
 				   str_family(ai->ai_family),
 				   ai->ai_canonname ? ai->ai_canonname : "");
+		}
 
 		if (target_ai_family != AF_UNSPEC &&
 			target_ai_family != ai->ai_family) {
@@ -711,8 +713,21 @@ main(int argc, char **argv)
 				 */
 				error(2, 0, "%s: %s", target, gai_strerror(EAI_ADDRFAMILY));
 			}
+
+			if (rts.opt_verbose) {
+				error(0, 0, "SKIP ai->ai_family: %s, ai->ai_canonname: '%s'",
+					  str_family(ai->ai_family),
+					  ai->ai_canonname ? ai->ai_canonname : "");
+			}
 			continue;
 		}
+
+		if (rts.opt_verbose) {
+			error(0, 0, "USED ai->ai_family: %s, ai->ai_canonname: '%s'",
+				  str_family(ai->ai_family),
+				  ai->ai_canonname ? ai->ai_canonname : "");
+		}
+
 		switch (ai->ai_family) {
 		case AF_INET:
 			ret_val = ping4_run(&rts, argc, argv, ai, &sock4);
@@ -815,6 +830,7 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 		rts->whereto.sin_family = AF_INET;
 		if (inet_aton(target, &rts->whereto.sin_addr) == 1) {
 			rts->hostname = target;
+			error(0, 0, "FINAL use target directly: '%s'", target);
 			if (argc == 1)
 				rts->opt_numeric = 1;
 		} else {
@@ -835,10 +851,13 @@ int ping4_run(struct ping_rts *rts, int argc, char **argv, struct addrinfo *ai,
 			 * ai_canonname. Instead of printing nothing in "PING"
 			 * line use the target.
 			 */
-			if (result->ai_canonname)
+			if (result->ai_canonname) {
 				strncpy(hnamebuf, result->ai_canonname, sizeof hnamebuf - 1);
-			else
+				error(0, 0, "FINAL result->ai_canonname: '%s'", result->ai_canonname);
+			} else {
 				strncpy(hnamebuf, target, sizeof hnamebuf - 1);
+				error(0, 0, "FINAL result->ai_canonname not found, using '%s'", target);
+			}
 
 			rts->hostname = hnamebuf;
 
