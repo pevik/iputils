@@ -1880,7 +1880,7 @@ int ping4_data_bytes(struct ping_rts *rts)
 
 void ping4_print_data_bytes(struct ping_rts *rts, int bytes)
 {
-	printf(_("%d(%d) bytes of data.\n"), rts->datalen, bytes);
+	printf(_("%d (%d) data bytes\n"), rts->datalen, bytes);
 }
 
 char *ping4_source(struct ping_rts *rts)
