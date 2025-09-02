@@ -712,10 +712,11 @@ main(int argc, char **argv)
 		error(2, 0, "%s: %s", target, gai_strerror(ret_val));
 
 	for (ai = result; ai; ai = ai->ai_next) {
-		if (rts.opt_verbose)
+		if (rts.opt_verbose) {
 			error(0, 0, "ai->ai_family: %s, ai->ai_canonname: '%s'",
 				   str_family(ai->ai_family),
 				   ai->ai_canonname ? ai->ai_canonname : "");
+		}
 
 		if (target_ai_family != AF_UNSPEC &&
 			target_ai_family != ai->ai_family) {
@@ -725,8 +726,21 @@ main(int argc, char **argv)
 				 */
 				error(2, 0, "%s: %s", target, gai_strerror(EAI_ADDRFAMILY));
 			}
+
+			if (rts.opt_verbose) {
+				error(0, 0, "SKIP ai->ai_family: %s, ai->ai_canonname: '%s'",
+					  str_family(ai->ai_family),
+					  ai->ai_canonname ? ai->ai_canonname : "");
+			}
 			continue;
 		}
+
+		if (rts.opt_verbose) {
+			error(0, 0, "USED ai->ai_family: %s, ai->ai_canonname: '%s'",
+				  str_family(ai->ai_family),
+				  ai->ai_canonname ? ai->ai_canonname : "");
+		}
+
 		switch (ai->ai_family) {
 		case AF_INET:
 			ret_val = ping4_run(&rts, argc, argv, ai, &sock4);
