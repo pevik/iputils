@@ -53,7 +53,7 @@ sub get_canonname
 		$cmd->stdout_like(qr/time=\d+\.\d+ ms/, 'Ping time present');
 		$cmd->stdout_like(qr~rtt min/avg/max/mdev = \d+\.\d{3}/\d+\.\d{3}/\d+\.\d{3}/\d+\.\d{3} ms$~,
 			'RTT time present');
-		$cmd->stdout_like(qr{^PING 127\.0\.0\.1 \(127\.0\.0\.1\) 56\(84\) bytes of data\.
+		$cmd->stdout_like(qr{^PING 127\.0\.0\.1 \(127\.0\.0\.1\) 56 \(84\) data bytes
 64 bytes from 127\.0\.0\.1: icmp_seq=1 ttl=\d+ time=\d\.\d{3} ms
 
 --- 127.0.0.1 ping statistics ---
@@ -110,7 +110,7 @@ die "Undefined cannonical name for $localhost on IPv6" unless defined $localhost
 		$cmd->stdout_like(qr/time=\d+\.\d+ ms/, 'Ping time present');
 		$cmd->stdout_like(qr~rtt min/avg/max/mdev = \d+\.\d{3}/\d+\.\d{3}/\d+\.\d{3}/\d+\.\d{3} ms$~,
 			'RTT time present');
-		$cmd->stdout_like(qr{^PING $localhost_cannon_ipv4 \(127\.0\.0\.1\) 56\(84\) bytes of data\.
+		$cmd->stdout_like(qr{^PING $localhost_cannon_ipv4 \(127\.0\.0\.1\) 56 \(84\) data bytes
 64 bytes from $localhost_cannon_ipv4 \(127\.0\.0\.1\): icmp_seq=1 ttl=\d+ time=\d\.\d{3} ms
 
 --- $localhost_cannon_ipv4 ping statistics ---

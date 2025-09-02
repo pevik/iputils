@@ -25,10 +25,10 @@ system("/bin/sh", "-c", "command -v $ping");
 	$cmd->exit_is_num($> == 0 ? 0 : 2);
 	subtest 'output' => sub {
 		if ($> == 0) {
-			$cmd->stdout_like(qr/^PING 127\.0\.0\.1.*bytes of data\.$/m, 'Ping header');
+			$cmd->stdout_like(qr/^PING 127\.0\.0\.1.* data bytes$/m, 'Ping header');
 			$cmd->stdout_like(qr/64 bytes from 127\.0\.0\.1: icmp_seq=1 ttl=\d+ time=\d+\.\d+ ms/m, 'Ping reply line');
 			$cmd->stdout_like(qr/1 packets transmitted, 1 received, 0% packet loss/, 'Ping success summary');
-			$cmd->stdout_like(qr{^PING 127\.0\.0\.1 \(127\.0\.0\.1\) 56\(84\) bytes of data\.
+			$cmd->stdout_like(qr{^PING 127\.0\.0\.1 \(127\.0\.0\.1\) 56 \(84\) data bytes
 64 bytes from 127\.0\.0\.1: icmp_seq=1 ttl=\d+ time=\d\.\d{3} ms
 
 --- 127.0.0.1 ping statistics ---
