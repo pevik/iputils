@@ -1703,7 +1703,7 @@ int ping4_parse_reply(struct ping_rts *rts, struct socket_st *sock,
 			wrong_source = 1;
 		if (gather_statistics(rts, (uint8_t *)icp, sizeof(*icp), cc,
 				      ntohs(icp->un.echo.sequence),
-				      reply_ttl, csfailed, tv, pr_addr(rts, from, sizeof *from),
+				      reply_ttl, csfailed, tv, pr_addr_split(rts, from, sizeof *from),
 				      pr_echo_reply, rts->multicast, wrong_source)) {
 			fflush(stdout);
 			return 0;

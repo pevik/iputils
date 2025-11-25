@@ -440,7 +440,7 @@ extern void status(struct ping_rts *rts);
 extern void common_options(int ch);
 extern int gather_statistics(struct ping_rts *rts, uint8_t *icmph, int icmplen,
 			     int cc, uint16_t seq, int hops,
-			     int csfailed, struct timeval *tv, char *from,
+			     int csfailed, struct timeval *tv, struct pr_addr out,
 			     void (*pr_reply)(struct ping_rts *rts, uint8_t *ptr, int cc), int multicast,
 			     int wrong_source);
 extern void print_timestamp(struct ping_rts *rts);
