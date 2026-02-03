@@ -257,3 +257,15 @@ output += 'sbindir: ' + sbindir + '\n'
 output += 'systemdunitdir: ' + systemdunitdir + '\n'
 
 message(output)
+
+summary({
+		'arping' : build_arping,
+		'  capability or suid for arping' : setcap_arping,
+		'clockdiff:' : build_clockdiff,
+		'  capability or suid for clockdiff' : setcap_clockdiff
+		}, section: 'Applications')
+
+summary({
+		'man:' : build_mans,
+		'HTML man:' : build_html_mans
+		}, section: 'Mans')
