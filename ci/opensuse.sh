@@ -21,7 +21,7 @@ $zypper \
 	libxslt-tools \
 	meson \
 	ninja \
-	pkg-config
+	pkgconf
 
 if [ "$WITH_TEST_DEPS" ]; then
 	if ! $zypper perl-Test-Command perl-Socket-GetAddrInfo; then
