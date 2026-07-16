@@ -55,7 +55,7 @@ jobs:
             env:
               CC: gcc
 
-          - container: "opensuse/leap"
+          - container: "opensuse/leap:15"
             env:
               CC: clang
 
