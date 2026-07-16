@@ -1,19 +1,9 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (c) 2018-2025 Petr Vorel <pvorel@suse.cz>
+# Copyright (c) 2018-2026 Petr Vorel <pvorel@suse.cz>
 set -ex
 
 zypper='zypper --non-interactive install --no-recommends'
-
-if [ "$WITH_TEST_DEPS" ]; then
-	TEST_DEPS="
-	perl-Test-Command
-"
-	if ! $zypper perl-Socket-GetAddrInfo; then
-		$zypper make perl
-		PERL_MM_USE_DEFAULT=1 cpan -T Socket::GetAddrInfo
-	fi
-fi
 
 $zypper \
 	clang \
@@ -31,5 +21,11 @@ $zypper \
 	libxslt-tools \
 	meson \
 	ninja \
-	pkg-config \
-	$TEST_DEPS
+	pkg-config
+
+if [ "$WITH_TEST_DEPS" ]; then
+	if ! $zypper perl-Test-Command perl-Socket-GetAddrInfo; then
+		$zypper make perl
+		perl -MCPAN -e 'install Socket::GetAddrInfo; install Test::Command; install Test::More'
+	fi
+fi
