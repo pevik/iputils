@@ -31,5 +31,5 @@ $zypper \
 	libxslt-tools \
 	meson \
 	ninja \
-	pkg-config \
+	pkgconf \
 	$TEST_DEPS
